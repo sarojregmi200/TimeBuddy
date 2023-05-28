@@ -7,4 +7,5 @@ export default StyleSheet.create({
   title: {},
   button: {},
   txtContent: {},
+  wrapper: {},
 });
