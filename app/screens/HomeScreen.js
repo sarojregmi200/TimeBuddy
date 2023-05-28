@@ -13,13 +13,21 @@ const HomeScreen = () => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-        <Image style={styles.illustartion} />
+        {/* The illustaration above all other things */}
+        <Image
+          style={styles.illustartion}
+          source={require("../assets/Graphics/Images/illustration.png")}
+        />
+
+        {/* The middle texts */}
         <View style={styles.txtContent}>
           <Text style={styles.title}>Master Your Time</Text>
           <Text style={styles.description}>
             Let you buddy remember what you have to do
           </Text>
         </View>
+
+        {/* create new button  */}
       </View>
       {/* navigation */}
     </View>
