@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React from "react";
 
 // style for the homescreen
@@ -9,6 +9,7 @@ const HomeScreen = () => {
     <>
       {/* home main screen */}
       <View style={styles.mainContainer}>
+        <Image source={require("../assets/monk.png")} style={styles.monk} />
         {/* illustration */}
         {/* text */}
         <Text style={styles.title}></Text>
