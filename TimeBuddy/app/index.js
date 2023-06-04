@@ -13,28 +13,23 @@ const HomeScreen = () => {
   const data = useContext(datalayer);
 
   return (
-    <>
-      {/* home main screen */}
-      <View style={styles.mainContainer}>
-        {/* illustration */}
-        <Image source={require("../assets/monk.png")} style={styles.monk} />
-        {/* text content*/}
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>Master Your Time</Text>
-          <Text style={styles.para}>
-            let your buddy remember{"\n"}
-            what you have to do.
-          </Text>
-        </View>
-        {/* button */}
-        <Button
-          data={{ txt: "Create Routine" }}
-          style={{ body: styles.buttonBody, txt: styles.buttonTxt }}
-        />
+    <View style={styles.mainContainer}>
+      {/* illustration */}
+      <Image source={require("../assets/monk.png")} style={styles.monk} />
+      {/* text content*/}
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>Master Your Time</Text>
+        <Text style={styles.para}>
+          let your buddy remember{"\n"}
+          what you have to do.
+        </Text>
       </View>
-
-      {/* Tab navigation */}
-    </>
+      {/* button */}
+      <Button
+        data={{ txt: "Create Routine" }}
+        style={{ body: styles.buttonBody, txt: styles.buttonTxt }}
+      />
+    </View>
   );
 };
 
