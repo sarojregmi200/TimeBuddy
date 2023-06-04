@@ -7,6 +7,9 @@ import { useRouter, usePathname } from "expo-router";
 // importing the styles
 import styles from "./../../styles/style.bottomNavigation.js";
 
+//testing the svg
+import svgfile from "../../assets/svgs/home.svg";
+
 const BottomNavigation = () => {
   // to handle route change
   const router = useRouter();
@@ -16,6 +19,10 @@ const BottomNavigation = () => {
 
   // gets the active route
   const ActivePathname = usePathname();
+
+  //testing the svg
+
+  console.log(svgfile);
 
   // to change the style of the active path
   const getActiveClass = (pathName, consumer) =>
