@@ -1,10 +1,20 @@
 
-firstScreen:
+HomeScreen:
   ✔ font setup @started(23-06-04 14:26) @done(23-06-04 14:53) @lasted(27m29s)
   ✔ illustration import and implementation @done(23-06-04 15:08)
   ✔ Button component and implemenation @started(23-06-04 15:08) @done(23-06-04 16:23) @lasted(1h15m39s)
   ✔ complete with all the styling @done(23-06-04 16:23)
 
+RoutineScreen:
+  ☐ routine layout markup
+  ☐ Toggle switch
+  ☐ days with control
+  ☐ hold to revel delete item
+  ☐ delete action
+  ☐ toggle action
+  ☐ actual styling with shadows and everything..
+
 Universal:
-  ☐ navigation @started(23-06-04 17:43)
+  ✔ navigation without icon @started(23-06-04 17:43) @done(23-06-04 22:47) @lasted(5h4m36s)
+  ☐ svg icon with styling importing feature..
   ✔ context @done(23-06-04 17:41)
