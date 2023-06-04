@@ -1,11 +1,17 @@
 import { View, Text, Image } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 
 // style for the homescreen
 import styles from "../styles/style.home.js";
 import Button from "../components/global/Button.jsx";
 
+// context api layer
+import { datalayer } from "../configurations/Context.js";
+
 const HomeScreen = () => {
+  // data from the data layer
+  const data = useContext(datalayer);
+
   return (
     <>
       {/* home main screen */}

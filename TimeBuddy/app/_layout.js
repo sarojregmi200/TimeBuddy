@@ -15,6 +15,9 @@ import {
   Inter_600SemiBold,
 } from "@expo-google-fonts/inter";
 
+// data layer wrapper
+import Context from "../configurations/Context.js";
+
 export default layout = () => {
   // for loading the fonts
   const [fontLoaded] = useFonts({
@@ -33,9 +36,11 @@ export default layout = () => {
 
   // returns the navigation stack when the font is loaded
   return (
-    <Stack
-      initialRouteName="HomeScreen"
-      screenOptions={{ headerShown: false }}
-    />
+    <Context>
+      <Stack
+        initialRouteName="HomeScreen"
+        screenOptions={{ headerShown: false }}
+      />
+    </Context>
   );
 };

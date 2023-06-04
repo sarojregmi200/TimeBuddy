@@ -2,9 +2,9 @@
 firstScreen:
   ✔ font setup @started(23-06-04 14:26) @done(23-06-04 14:53) @lasted(27m29s)
   ✔ illustration import and implementation @done(23-06-04 15:08)
-  ☐ Button component and implemenation @started(23-06-04 15:08)
-  ☐ complete with all the styling
+  ✔ Button component and implemenation @started(23-06-04 15:08) @done(23-06-04 16:23) @lasted(1h15m39s)
+  ✔ complete with all the styling @done(23-06-04 16:23)
 
 Universal:
   ☐ navigation
-  ☐ context
+  ✔ context @done(23-06-04 17:41)
