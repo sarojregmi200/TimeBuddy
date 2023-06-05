@@ -8,7 +8,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     borderBottomColor: "#E0EFEC",
     borderBottomWidth: 1,
-    paddingLeft: 25,
+    paddingHorizontal: 25,
   },
   leftSection: {
     flex: 1,

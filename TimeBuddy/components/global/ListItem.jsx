@@ -6,6 +6,7 @@ import styles from "../../styles/components/style.listItem.js";
 
 // components
 import Days from "../routine/Days.jsx";
+import ToggleBtn from "../routine/ToggleBtn.jsx";
 const ListItem = ({ data }) => {
   const [toggleBtn, setToggleBtn] = useState(data.isOn);
 
@@ -20,6 +21,7 @@ const ListItem = ({ data }) => {
       </View>
 
       {/* toggle btn */}
+      <ToggleBtn state={[toggleBtn, setToggleBtn]} />
     </View>
   );
 };
