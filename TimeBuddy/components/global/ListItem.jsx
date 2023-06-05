@@ -10,6 +10,7 @@ import ToggleBtn from "../routine/ToggleBtn.jsx";
 const ListItem = ({ data }) => {
   const [toggleBtn, setToggleBtn] = useState(data.isOn);
 
+  console.log(toggleBtn);
   return (
     <View style={styles.itemContainer}>
       <View style={styles.leftSection}>
@@ -21,7 +22,7 @@ const ListItem = ({ data }) => {
       </View>
 
       {/* toggle btn */}
-      <ToggleBtn state={[toggleBtn, setToggleBtn]} />
+      <ToggleBtn controls={[toggleBtn, setToggleBtn]} />
     </View>
   );
 };

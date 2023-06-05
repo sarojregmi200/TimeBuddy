@@ -3,11 +3,20 @@ import React from "react";
 
 // stylesheet
 import styles from "../../styles/components/routine/style.toggleBtn.js";
-const ToggleBtn = () => {
+const ToggleBtn = ({ controls: [toggleBtn, setToggleBtn] }) => {
+  const handleToggle = () => {
+    setToggleBtn(!toggleBtn);
+  };
+
   return (
-    <View style={styles.outerContainer}>
-      <View style={styles.innerCircle}></View>
-    </View>
+    <Pressable
+      onPress={handleToggle}
+      style={[styles.outerContainer, toggleBtn && styles.activeOuterContainer]}
+    >
+      <View
+        style={[styles.innerCircle, toggleBtn && styles.activeInnerCircle]}
+      ></View>
+    </Pressable>
   );
 };
 
