@@ -2,7 +2,7 @@ import { View, Text, Image } from "react-native";
 import React, { useContext } from "react";
 
 // style for the homescreen
-import styles from "../styles/style.home.js";
+import styles from "../styles/app/style.home.js";
 import Button from "../components/global/Button.jsx";
 
 // context api layer
