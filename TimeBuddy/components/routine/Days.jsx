@@ -2,15 +2,18 @@ import { View, Text } from "react-native";
 import React from "react";
 
 import styles from "../../styles/components/routine/style.days.js";
-const Days = ({ data }) => {
+const Days = ({ data, status }) => {
   const days = ["M", "T", "W", "T", "F", "S", "S"];
 
   const activeStyle = (toCheck, consumer) =>
     data[toCheck]
       ? consumer === "container"
-        ? styles.activeDayContainer
+        ? status
+          ? styles.activeDayContainer
+          : // toggle btn is off but day is in the repeat
+            styles.offActiveDayContainer
         : styles.activeDayTxt
-      : null;
+      : consumer === "txt" && !status && styles.offInactiveDayText;
   return (
     <View style={styles.daysContainer}>
       {days.map((day, index) => {

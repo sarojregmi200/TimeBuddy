@@ -18,4 +18,7 @@ export default StyleSheet.create({
     fontSize: 16,
     fontFamily: "Poppins_600SemiBold",
   },
+  inactiveTitle: {
+    color: "#A5A5A5",
+  },
 });
