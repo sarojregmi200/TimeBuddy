@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React, { useState } from "react";
 
 // stylesheet
@@ -12,19 +12,19 @@ const ListItem = ({ data }) => {
   const [toggleBtn, setToggleBtn] = useState(data.isOn);
 
   return (
-    <View style={styles.itemContainer}>
-      <View style={styles.leftSection}>
+    <Pressable style={styles.itemContainer}>
+      <Pressable style={styles.leftSection}>
         {/* title */}
         <Text style={[styles.title, !toggleBtn && styles.inactiveTitle]}>
           {data.name}
         </Text>
         {/* days */}
         <Days data={data.days} status={toggleBtn} />
-      </View>
+      </Pressable>
 
       {/* toggle btn */}
       <ToggleBtn controls={[toggleBtn, setToggleBtn]} />
-    </View>
+    </Pressable>
   );
 };
 

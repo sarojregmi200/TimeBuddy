@@ -47,7 +47,7 @@ const BottomNavigation = () => {
       >
         {/* routine icon */}
         <Text style={[styles.navTxt, getActiveClass("/Routine", "txt")]}>
-          routine
+          Routine
         </Text>
       </Pressable>
 
@@ -60,7 +60,7 @@ const BottomNavigation = () => {
       >
         {/* profile icon */}
         <Text style={[styles.navTxt, getActiveClass("/Profile", "txt")]}>
-          profile
+          Profile
         </Text>
       </Pressable>
     </View>
