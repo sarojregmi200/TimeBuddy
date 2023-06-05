@@ -6,13 +6,13 @@ HomeScreen:
   ✔ complete with all the styling @done(23-06-04 16:23)
 
 RoutineScreen:
-  ☐ routine layout markup
-  ☐ Toggle switch
-  ☐ days with control
+  ✔ routine layout markup @done(23-06-05 16:46)
+  ✔ Toggle switch @done(23-06-05 16:46)
+  ✔ days with control @done(23-06-05 16:46)
   ☐ hold to revel delete item
-  ☐ delete action
-  ☐ toggle action
-  ☐ actual styling with shadows and everything..
+  ✔ delete action @done(23-06-05 16:46)
+  ✔ toggle action @done(23-06-05 16:46)
+  ☐ actual styling with shadows and everything.. @started(23-06-05 16:46)
 
 Universal:
   ✔ navigation without icon @started(23-06-04 17:43) @done(23-06-04 22:47) @lasted(5h4m36s)
