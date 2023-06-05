@@ -19,6 +19,10 @@ export default StyleSheet.create({
     fontFamily: "Poppins_600SemiBold",
     fontSize: 15,
   },
+  activeDayContainer: {
+    backgroundColor: "#F58A2F",
+  },
+  activeDayTxt: { color: "white" },
   notFirstTxtCon: {
     marginLeft: 10,
   },
