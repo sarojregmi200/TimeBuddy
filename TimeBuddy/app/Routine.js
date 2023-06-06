@@ -16,9 +16,6 @@ const Routine = ({}) => {
     Routine: [routineInfo],
   } = useContext(datalayer);
 
-  useEffect(() => {
-    console.log(routineInfo);
-  }, [routineInfo]);
   return (
     <>
       <View style={styles.mainContainer}>
