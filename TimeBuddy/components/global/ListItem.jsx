@@ -23,7 +23,7 @@ const ListItem = ({ data }) => {
       </Pressable>
 
       {/* toggle btn */}
-      <ToggleBtn controls={[toggleBtn, setToggleBtn]} />
+      <ToggleBtn controls={[toggleBtn, setToggleBtn]} routineId={data._id} />
     </Pressable>
   );
 };

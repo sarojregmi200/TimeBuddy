@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 // stylesheet
 import styles from "../styles/app/style.routine.js";
@@ -13,8 +13,12 @@ import DeleteBtn from "../components/routine/DeleteBtn.jsx";
 
 const Routine = ({}) => {
   const {
-    Routine: [routineInfo, setRoutineInfo],
+    Routine: [routineInfo],
   } = useContext(datalayer);
+
+  useEffect(() => {
+    console.log(routineInfo);
+  }, [routineInfo]);
   return (
     <>
       <View style={styles.mainContainer}>
