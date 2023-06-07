@@ -5,7 +5,7 @@ import React from "react";
 import styles from "../../components/routine/style.deleteBtn.js";
 
 // ui elements
-import { BoxShadow, Canvas, Circle, Shadow } from "@shopify/react-native-skia";
+import { Canvas, Circle, Shadow } from "@shopify/react-native-skia";
 
 const DeleteBtn = ({ state }) => {
   const r = 30;

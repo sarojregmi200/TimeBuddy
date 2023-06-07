@@ -9,6 +9,7 @@ export default StyleSheet.create({
     borderBottomColor: "#E0EFEC",
     borderBottomWidth: 1,
     paddingHorizontal: 25,
+    backgroundColor: "white",
   },
   leftSection: {
     flex: 1,

@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import React, { createContext, useState } from "react";
 
 // creating the context provider
@@ -29,8 +28,15 @@ const Context = ({ children }) => {
     },
   ]);
 
+  // state that controls says whether the list is holded or touched when the list item is touched..
+  const [isHold, setIsHold] = useState(false);
   return (
-    <datalayer.Provider value={{ Routine: [routineInfo, setRoutineInfo] }}>
+    <datalayer.Provider
+      value={{
+        routine: [routineInfo, setRoutineInfo],
+        listItem: [isHold, setIsHold],
+      }}
+    >
       {children}
     </datalayer.Provider>
   );

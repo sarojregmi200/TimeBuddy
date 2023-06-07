@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 
 // to handle the routes
 import { useRouter, usePathname } from "expo-router";

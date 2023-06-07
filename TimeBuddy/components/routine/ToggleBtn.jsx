@@ -10,7 +10,7 @@ import { datalayer } from "../../configurations/Context.js";
 const ToggleBtn = ({ controls: [toggleBtn, setToggleBtn], routineId }) => {
   // function to change routine info data
   const {
-    Routine: [, setRoutineInfo],
+    routine: [, setRoutineInfo],
   } = useContext(datalayer);
 
   const handleToggle = () => {

@@ -6,7 +6,7 @@ import {
   PanResponder,
   Vibration,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 // stylesheet
 import styles from "../../styles/components/style.listItem.js";
@@ -15,20 +15,23 @@ import styles from "../../styles/components/style.listItem.js";
 import Days from "../routine/Days.jsx";
 import ToggleBtn from "../routine/ToggleBtn.jsx";
 
+// context
+import { datalayer } from "../../configurations/Context.js";
+
 const ListItem = ({ data }) => {
   // state that controls the state of the on off button.
   const [toggleBtn, setToggleBtn] = useState(data.isOn);
 
-  // state that controls says whether the list is holded or not.
-  const [isHold, setIsHold] = useState(false);
-  // used to:
+  const {
+    listItem: [isHold, setIsHold],
+  } = useContext(datalayer);
+  // used to 🔽:
   // -- activate the moveable property..
   // -- to show the delete btn
   // -- to change the ui that indicates one item is holded
 
   // gesture control that control the dragging of the item
-  const pan = useRef(new Animated.ValueXY()).current;
-
+  let pan = useRef(new Animated.ValueXY()).current;
   let panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -51,23 +54,30 @@ const ListItem = ({ data }) => {
     })
   ).current;
 
+  // to reset the moved position on rehold
+  const animatedViewRef = useRef(null);
+
+  // name of the timeout function to handle it's existance
   let holdTimeOut = "";
+  // usage 🔽
+  // validates if a touch is long enough to be considered a hold or not..
 
   const handleTouchBegin = () => {
     // after the 500 milliseconds of holding the item it is activated as a hold..
     holdTimeOut = setTimeout(() => {
-      setIsHold(true);
+      setIsHold(true); // setting hold to true
+      // resetting the item offset before 500ms
+      pan.setOffset({ x: 0, y: 0 });
       Vibration.vibrate(50); // vibrates for 50ms
     }, 500);
   };
-
   const handleTouchEnd = () => {
     // since timout will convert it to a valid hold even if it is released at 200ms so, it must be cleared on hold
     clearTimeout(holdTimeOut);
     setIsHold(false);
 
     // resetting the pan on hold leave
-    pan.resetAnimation();
+    pan.setOffset({ x: 0, y: 0 });
   };
 
   return (
@@ -82,6 +92,7 @@ const ListItem = ({ data }) => {
             transform: [{ translateX: pan.x }, { translateY: pan.y }],
           }
         }
+        ref={animatedViewRef}
         {...panResponder.panHandlers}
       >
         <View style={[styles.itemContainer]}>

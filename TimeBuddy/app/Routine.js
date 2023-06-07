@@ -13,7 +13,7 @@ import DeleteBtn from "../components/routine/DeleteBtn.jsx";
 
 const Routine = ({}) => {
   const {
-    Routine: [routineInfo],
+    routine: [routineInfo],
   } = useContext(datalayer);
 
   return (
