@@ -6,7 +6,7 @@ import {
   PanResponder,
   Vibration,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // stylesheet
 import styles from "../../styles/components/style.listItem.js";
@@ -28,13 +28,23 @@ const ListItem = ({ data }) => {
 
   // gesture control that control the dragging of the item
   const pan = useRef(new Animated.ValueXY()).current;
-  const panResponder = useRef(
+
+  let panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {
-        useNativeDriver: false,
-      }),
+      onPanResponderMove: Animated.event(
+        [
+          null,
+          {
+            dx: pan.x,
+            dy: pan.y,
+          },
+        ],
+        {
+          useNativeDriver: false,
+        }
+      ),
       onPanResponderRelease: () => {
         pan.extractOffset();
       },
@@ -52,8 +62,12 @@ const ListItem = ({ data }) => {
   };
 
   const handleTouchEnd = () => {
+    // since timout will convert it to a valid hold even if it is released at 200ms so, it must be cleared on hold
     clearTimeout(holdTimeOut);
     setIsHold(false);
+
+    // resetting the pan on hold leave
+    pan.resetAnimation();
   };
 
   return (
@@ -63,9 +77,11 @@ const ListItem = ({ data }) => {
       delayLongPress={500}
     >
       <Animated.View
-        style={{
-          transform: [{ translateX: pan.x }, { translateY: pan.y }],
-        }}
+        style={
+          isHold && {
+            transform: [{ translateX: pan.x }, { translateY: pan.y }],
+          }
+        }
         {...panResponder.panHandlers}
       >
         <View style={[styles.itemContainer]}>
