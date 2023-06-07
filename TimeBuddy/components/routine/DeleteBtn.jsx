@@ -18,6 +18,7 @@ const DeleteBtn = ({ state }) => {
         top: Dimensions.get("screen").height - 270,
         left: Dimensions.get("screen").width / 2 - canvasSize / 2,
         position: "absolute",
+        display: state ? "flex" : "none",
       }}
     >
       <Circle r={30} cx={canvasSize / 2} cy={canvasSize / 2} color="white" />
