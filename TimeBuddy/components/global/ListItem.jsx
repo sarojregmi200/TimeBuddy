@@ -72,9 +72,11 @@ const ListItem = ({ data }) => {
     }, 500);
   };
   const handleTouchEnd = () => {
+    // resetting the state to false to hide the del btn
+    setIsHold(false);
+
     // since timout will convert it to a valid hold even if it is released at 200ms so, it must be cleared on hold
     clearTimeout(holdTimeOut);
-    setIsHold(false);
 
     // resetting the pan on hold leave
     pan.setOffset({ x: 0, y: 0 });

@@ -32,7 +32,6 @@ const Routine = ({}) => {
           ))}
         </View>
       </View>
-
       <DeleteBtn />
     </>
   );
