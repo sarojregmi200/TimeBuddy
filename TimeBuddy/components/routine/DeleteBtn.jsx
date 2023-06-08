@@ -22,9 +22,10 @@ const DeleteBtn = () => {
         top: Dimensions.get("screen").height - 270,
         left: Dimensions.get("screen").width / 2 - canvasSize / 2,
         position: "absolute",
+        zIndex: 9,
       }}
     >
-      {isHold && (
+      {isHold.state && (
         <Circle r={r} cx={canvasSize / 2} cy={canvasSize / 2} color="white" />
       )}
       <Shadow color={"rgba(245, 138, 47, 0.44)"} dx={0} dy={0} blur={20} />

@@ -65,7 +65,7 @@ const ListItem = ({ data }) => {
   const handleTouchBegin = () => {
     // after the 500 milliseconds of holding the item it is activated as a hold..
     holdTimeOut = setTimeout(() => {
-      setIsHold(true); // setting hold to true
+      setIsHold({ id: data._id, state: true }); // setting hold to true
       // resetting the item offset before 500ms
       pan.setOffset({ x: 0, y: 0 });
       Vibration.vibrate(50); // vibrates for 50ms
@@ -73,7 +73,7 @@ const ListItem = ({ data }) => {
   };
   const handleTouchEnd = () => {
     // resetting the state to false to hide the del btn
-    setIsHold(false);
+    setIsHold({ id: "none", state: false });
 
     // since timout will convert it to a valid hold even if it is released at 200ms so, it must be cleared on hold
     clearTimeout(holdTimeOut);
@@ -87,11 +87,15 @@ const ListItem = ({ data }) => {
       onTouchStart={handleTouchBegin}
       onTouchEnd={handleTouchEnd}
       delayLongPress={500}
+      style={
+        isHold.state && isHold.id === data._id ? { zIndex: 20 } : { zIndex: 10 }
+      }
     >
       <Animated.View
         style={
-          isHold && {
+          isHold.state && {
             transform: [{ translateX: pan.x }, { translateY: pan.y }],
+            zIndex: 20,
           }
         }
         ref={animatedViewRef}

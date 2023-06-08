@@ -29,7 +29,7 @@ const Context = ({ children }) => {
   ]);
 
   // state that controls says whether the list is holded or touched when the list item is touched..
-  const [isHold, setIsHold] = useState(false);
+  const [isHold, setIsHold] = useState({ id: "none", state: false });
   return (
     <datalayer.Provider
       value={{

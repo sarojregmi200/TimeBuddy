@@ -10,6 +10,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     paddingHorizontal: 25,
     backgroundColor: "white",
+    zIndex: 10,
   },
   leftSection: {
     flex: 1,
