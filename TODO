@@ -21,5 +21,6 @@ RoutineScreen:
 
 Universal:
   ✔ navigation without icon @started(23-06-04 17:43) @done(23-06-04 22:47) @lasted(5h4m36s)
-  ☐ svg icon with styling importing feature..
+  ✘ svg icon with styling importing feature.. @started(23-06-08 13:26) @cancelled(23-06-08 15:32) @wasted(2h6m3s)
+  ☐ importing svg with the transformer and without styles or by using img tag.
   ✔ context @done(23-06-04 17:41)

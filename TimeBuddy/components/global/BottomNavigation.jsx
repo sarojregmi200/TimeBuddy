@@ -6,6 +6,7 @@ import { useRouter, usePathname } from "expo-router";
 
 // importing the styles
 import styles from "./../../styles/components/style.bottomNavigation.js";
+import SvgTransformer from "../../configurations/SvgTransformer.js";
 
 const BottomNavigation = () => {
   // to handle route change
@@ -27,6 +28,7 @@ const BottomNavigation = () => {
 
   return (
     <View style={styles.mainContainer}>
+      <SvgTransformer fileLocation={"../../assets/svg/home.svg"} />
       {/* home */}
       <Pressable
         style={styles.homeContainer}
