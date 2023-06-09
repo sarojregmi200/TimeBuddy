@@ -6,7 +6,11 @@ import { useRouter, usePathname } from "expo-router";
 
 // importing the styles
 import styles from "./../../styles/components/style.bottomNavigation.js";
-import SvgTransformer from "../../configurations/SvgTransformer.js";
+
+// importing svgs
+import Home from "../../assets/svgs/Home.svg";
+import Profile from "../../assets/svgs/Profile.svg";
+import Routine from "../../assets/svgs/Routine.svg";
 
 const BottomNavigation = () => {
   // to handle route change
@@ -20,15 +24,15 @@ const BottomNavigation = () => {
 
   // to change the style of the active path
   const getActiveClass = (pathName, consumer) =>
+    // @params pathname = current route
     pathName === ActivePathname
       ? consumer === "icon"
-        ? styles.activeIcon
+        ? "#FF9A62"
         : styles.activeTxt
-      : null;
+      : consumer === "icon" && "#AEAEAE";
 
   return (
     <View style={styles.mainContainer}>
-      <SvgTransformer fileLocation={"../../assets/svg/home.svg"} />
       {/* home */}
       <Pressable
         style={styles.homeContainer}
@@ -37,6 +41,7 @@ const BottomNavigation = () => {
         }}
       >
         {/* home icon */}
+        <Home fill={getActiveClass("/", "icon")} />
         <Text style={[styles.navTxt, getActiveClass("/", "txt")]}>Home</Text>
       </Pressable>
 
@@ -48,6 +53,7 @@ const BottomNavigation = () => {
         }}
       >
         {/* routine icon */}
+        <Routine stroke={getActiveClass("/Routine", "icon")} />
         <Text style={[styles.navTxt, getActiveClass("/Routine", "txt")]}>
           Routine
         </Text>
@@ -61,6 +67,11 @@ const BottomNavigation = () => {
         }}
       >
         {/* profile icon */}
+
+        <Profile
+          fill={getActiveClass("/Profile", "icon")}
+          stroke={getActiveClass("/Routine", "icon")}
+        />
         <Text style={[styles.navTxt, getActiveClass("/Profile", "txt")]}>
           Profile
         </Text>

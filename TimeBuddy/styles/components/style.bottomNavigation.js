@@ -3,7 +3,11 @@ import { Dimensions, StyleSheet } from "react-native";
 const horizontalPadding = 100;
 export default StyleSheet.create({
   activeIcon: {},
-  activeTxt: { color: "rgba(255, 154, 98, 1)", display: "flex" },
+  activeTxt: {
+    color: "rgba(255, 154, 98, 1)",
+    display: "flex",
+    textAlign: "center",
+  },
   mainContainer: {
     flexDirection: "row",
     height: 100,
@@ -15,13 +19,25 @@ export default StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: horizontalPadding,
   },
-  homeContainer: {},
-  routineContainer: {},
-  profileContainer: {},
+  routineContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  profileContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  homeContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   navTxt: {
     fontFamily: "Inter_600SemiBold",
     fontSize: 12,
-    color: "rgba(106, 106, 106, 0.53)",
-    // display: "none",
+    display: "none",
+    marginTop: 4,
   },
 });
