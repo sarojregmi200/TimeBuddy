@@ -21,6 +21,7 @@ RoutineScreen:
 
 Universal:
   ✔ navigation without icon @started(23-06-04 17:43) @done(23-06-04 22:47) @lasted(5h4m36s)
-  ✘ svg icon with styling importing feature.. @started(23-06-08 13:26) @cancelled(23-06-08 15:32) @wasted(2h6m3s)
-  ☐ importing svg with the transformer and without styles or by using img tag.
+  ✔ svg icon with styling importing feature.. @started(23-06-08 13:26) @done(23-06-09 13:32) @lasted(1d6m4s)
+  ✘ importing svg with the transformer and without styles or by using img tag. @started(23-06-09 11:36) @cancelled(23-06-09 13:31) @wasted(1h55m54s)
   ✔ context @done(23-06-04 17:41)
+  ✔ solve the svg problem with strokes @done(23-06-09 14:01)
