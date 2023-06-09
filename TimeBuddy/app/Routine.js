@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React, { useContext, useEffect } from "react";
 
 // stylesheet
@@ -11,6 +11,10 @@ import { datalayer } from "../configurations/Context.js";
 import ListItem from "../components/global/ListItem.jsx";
 import DeleteBtn from "../components/routine/DeleteBtn.jsx";
 
+//icons
+import Add from "../assets/svgs/Add.svg";
+import Delete from "../assets/svgs/Delete.svg";
+
 const Routine = ({}) => {
   const {
     routine: [routineInfo],
@@ -20,10 +24,13 @@ const Routine = ({}) => {
     <>
       <View style={styles.mainContainer}>
         {/* title with add icon*/}
-        <Text style={styles.titleContainer}>
+        <View style={styles.titleContainer}>
           <Text style={styles.title}>Routines</Text>
           {/*  add icon */}
-        </Text>
+          <Pressable style={styles.IconContainer}>
+            <Add />
+          </Pressable>
+        </View>
 
         <View style={[styles.routines]}>
           {/* list items */}

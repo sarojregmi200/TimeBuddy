@@ -25,3 +25,5 @@ Universal:
   ✘ importing svg with the transformer and without styles or by using img tag. @started(23-06-09 11:36) @cancelled(23-06-09 13:31) @wasted(1h55m54s)
   ✔ context @done(23-06-04 17:41)
   ✔ solve the svg problem with strokes @done(23-06-09 14:01)
+  ✔ add the + icon @done(23-06-09 15:25)
+  ☐ add the delete icon

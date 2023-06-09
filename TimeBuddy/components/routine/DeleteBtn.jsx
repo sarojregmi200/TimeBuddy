@@ -8,6 +8,9 @@ import styles from "../../components/routine/style.deleteBtn.js";
 import { Canvas, Circle, Shadow } from "@shopify/react-native-skia";
 import { datalayer } from "../../configurations/Context.js";
 
+//icon
+import Delete from "../../assets/svgs/Delete.svg";
+
 const DeleteBtn = () => {
   const r = 30;
   const canvasSize = 150;
@@ -26,7 +29,9 @@ const DeleteBtn = () => {
       }}
     >
       {isHold.state && (
-        <Circle r={r} cx={canvasSize / 2} cy={canvasSize / 2} color="white" />
+        <Circle r={r} cx={canvasSize / 2} cy={canvasSize / 2} color="white">
+          {/* <Delete /> */}
+        </Circle>
       )}
       <Shadow color={"rgba(245, 138, 47, 0.44)"} dx={0} dy={0} blur={20} />
     </Canvas>

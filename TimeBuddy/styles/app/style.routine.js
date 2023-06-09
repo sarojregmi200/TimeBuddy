@@ -9,8 +9,15 @@ export default StyleSheet.create({
   },
   titleContainer: {
     width: Dimensions.get("screen").width,
-    justifyContent: "space-between",
     paddingHorizontal: 25,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  IconContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
   },
   title: {
     color: "#48655F",
