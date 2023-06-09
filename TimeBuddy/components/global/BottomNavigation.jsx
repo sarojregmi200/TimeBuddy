@@ -70,7 +70,7 @@ const BottomNavigation = () => {
 
         <Profile
           fill={getActiveClass("/Profile", "icon")}
-          stroke={getActiveClass("/Routine", "icon")}
+          stroke={getActiveClass("/Profile", "icon")}
         />
         <Text style={[styles.navTxt, getActiveClass("/Profile", "txt")]}>
           Profile
