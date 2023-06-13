@@ -36,8 +36,8 @@ Universal:
 
 Bugs:
   ✔ keyboard pushes content upward @done(23-06-13 15:12)
-  ☐ toggle btn press is not always registerd or it is slow.
-  ☐ toggle btn not working in the new routine
+  ✔ toggle btn press is not always registerd or it is slow. @done(23-06-13 22:44)
+  ✔ toggle btn not working in the new routine @done(23-06-13 22:44)
   ✔ nav bar z index and container issue @done(23-06-13 13:53)
   
 

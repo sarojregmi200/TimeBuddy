@@ -14,6 +14,7 @@ const ToggleBtn = ({ controls: [toggleBtn, setToggleBtn], routineId }) => {
   } = useContext(datalayer);
 
   const handleToggle = () => {
+    console.log("toggle btn is pressed");
     setToggleBtn(!toggleBtn);
 
     setRoutineInfo((routineArr) => {

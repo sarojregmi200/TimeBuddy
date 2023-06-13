@@ -43,7 +43,7 @@ const Creator = () => {
 
   // checks the validity of the form i.e the name is not empty for now
   const [valid, setValid] = useState(false);
-  console.log(valid);
+
   // handles the creation of the state and updating the existing data layer state
   const handleCreation = () => {
     if (type === "Routine" && valid) {
