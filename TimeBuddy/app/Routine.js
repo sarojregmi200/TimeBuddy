@@ -13,7 +13,9 @@ import DeleteBtn from "../components/routine/DeleteBtn.jsx";
 
 //icons
 import Add from "../assets/svgs/Add.svg";
-import Delete from "../assets/svgs/Delete.svg";
+
+// popup creator.
+import Creator from "../components/routine/Creator.jsx";
 
 const Routine = ({}) => {
   const {
@@ -24,7 +26,6 @@ const Routine = ({}) => {
     <>
       <View style={styles.mainContainer}>
         <DeleteBtn />
-
         {/* title with add icon*/}
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Routines</Text>
@@ -40,6 +41,9 @@ const Routine = ({}) => {
           ))}
         </View>
       </View>
+
+      {/* popups */}
+      <Creator />
     </>
   );
 };
