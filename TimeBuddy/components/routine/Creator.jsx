@@ -29,7 +29,11 @@ const Creator = () => {
                 : styles.taskContainer,
               styles.mainContainer,
             ]}
-          ></View>
+          >
+            {/* a small btn to maximize the routine creator */}
+            {/* feature for version @0.2 */}
+            <View style={styles.maximizer}></View>
+          </View>
         </>
       )}
     </>

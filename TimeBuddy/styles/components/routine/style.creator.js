@@ -15,4 +15,11 @@ export default StyleSheet.create({
   },
   routineContainer: {},
   taskContainer: {},
+  maximizer: {
+    height: 4,
+    width: 100,
+    backgroundColor: "#D9D9D9",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
 });
