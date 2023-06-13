@@ -88,7 +88,9 @@ const ListItem = ({ data }) => {
       onTouchEnd={handleTouchEnd}
       delayLongPress={500}
       style={
-        isHold.state && isHold.id === data._id ? { zIndex: 20 } : { zIndex: 10 }
+        isHold.state && isHold.id === data._id
+          ? { zIndex: 20, elevation: 5 }
+          : { zIndex: 10 }
       }
     >
       <Animated.View

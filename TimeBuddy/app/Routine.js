@@ -23,6 +23,8 @@ const Routine = ({}) => {
   return (
     <>
       <View style={styles.mainContainer}>
+        <DeleteBtn />
+
         {/* title with add icon*/}
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Routines</Text>
@@ -31,7 +33,6 @@ const Routine = ({}) => {
             <Add />
           </Pressable>
         </View>
-
         <View style={[styles.routines]}>
           {/* list items */}
           {routineInfo.map((routine, index) => (
@@ -39,7 +40,6 @@ const Routine = ({}) => {
           ))}
         </View>
       </View>
-      <DeleteBtn />
     </>
   );
 };

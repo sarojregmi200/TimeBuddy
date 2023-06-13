@@ -13,6 +13,8 @@ RoutineScreen:
   ✔ hold to move @done(23-06-07 11:50)
   ☐ zindex delete btn problem
   ☐ hold to change container ui
+    ☐ elevation.
+    ☐ other fading.
   ✔ toggle btn state side effect @started(23-06-06 07:29) @done(23-06-06 08:29) @lasted(1h1m)
   ✔ drag and drop @done(23-06-06 10:53)
   ✔ delete action @done(23-06-05 16:46)

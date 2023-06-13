@@ -26,5 +26,6 @@ export default StyleSheet.create({
   },
   routines: {
     marginTop: 10,
+    zIndex: 20,
   },
 });
