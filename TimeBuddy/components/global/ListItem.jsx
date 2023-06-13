@@ -87,18 +87,22 @@ const ListItem = ({ data }) => {
       onTouchStart={handleTouchBegin}
       onTouchEnd={handleTouchEnd}
       delayLongPress={500}
-      style={
-        isHold.state && isHold.id === data._id
-          ? { zIndex: 20, elevation: 5 }
-          : { zIndex: 10 }
-      }
+      style={[isHold.state && isHold.id === data._id && { zIndex: 20 }]}
     >
       <Animated.View
         style={
-          isHold.state && {
-            transform: [{ translateX: pan.x }, { translateY: pan.y }],
-            zIndex: 20,
-          }
+          isHold.state
+            ? isHold.id == data._id
+              ? {
+                  transform: [{ translateX: pan.x }, { translateY: pan.y }],
+                  zIndex: 20,
+                }
+              : {
+                  opacity: 0.5,
+                }
+            : {
+                opacity: 1,
+              }
         }
         ref={animatedViewRef}
         {...panResponder.panHandlers}
