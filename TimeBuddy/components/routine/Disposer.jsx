@@ -1,7 +1,21 @@
 import { View, Text, Dimensions, Pressable } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 
+// context
+import { datalayer } from "../../configurations/Context";
+
+//  controls the state of the popup
 const Disposer = () => {
+  // contains the info about the popup state
+  const {
+    popup: [, setPopup],
+  } = useContext(datalayer);
+
+  // closes the popup and clears the state value.
+  const handleDispose = () => {
+    setPopup({ type: "none", state: false });
+  };
+
   return (
     <Pressable
       style={{
@@ -13,6 +27,7 @@ const Disposer = () => {
         left: 0,
         zIndex: 20,
       }}
+      onPress={handleDispose}
     ></Pressable>
   );
 };
