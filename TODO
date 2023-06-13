@@ -37,4 +37,4 @@ Universal:
 Bugs:
   ☐ keyboard pushes content upward
   ☐ toggle btn press is not always registerd or it is slow.
-  ☐ nav bar z index and container issue
+  ✔ nav bar z index and container issue @done(23-06-13 13:53)

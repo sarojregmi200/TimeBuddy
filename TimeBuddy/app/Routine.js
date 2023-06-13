@@ -14,9 +14,6 @@ import DeleteBtn from "../components/routine/DeleteBtn.jsx";
 //icons
 import Add from "../assets/svgs/Add.svg";
 
-// popup creator.
-import Creator from "../components/routine/Creator.jsx";
-
 const Routine = ({}) => {
   const {
     routine: [routineInfo],
@@ -46,9 +43,6 @@ const Routine = ({}) => {
           ))}
         </View>
       </View>
-
-      {/* popups */}
-      <Creator />
     </>
   );
 };

@@ -17,7 +17,10 @@ import {
 
 // data layer wrapper
 import Context from "../configurations/Context.js";
+
+// components
 import BottomNavigation from "../components/global/BottomNavigation.jsx";
+import Creator from "../components/routine/Creator.jsx";
 
 export default layout = () => {
   // for loading the fonts
@@ -42,8 +45,8 @@ export default layout = () => {
         initialRouteName="HomeScreen"
         screenOptions={{ headerShown: false }}
       />
-
       <BottomNavigation />
+      <Creator />
     </Context>
   );
 };

@@ -11,6 +11,7 @@ export default StyleSheet.create({
   mainContainer: {
     flexDirection: "row",
     height: 100,
+    backgroundColor: "white",
     position: "absolute",
     width: Dimensions.get("screen").width,
     left: 0,
