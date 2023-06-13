@@ -22,4 +22,27 @@ export default StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
+
+  formContents: {
+    height: "100%",
+    width: "100%",
+  },
+  nameContainer: {
+    marginVertical: 40,
+  },
+  label: {
+    fontFamily: "Inter_500Medium",
+    fontSize: 12,
+    color: "#545454",
+    marginBottom: 10,
+  },
+  nameInputBox: {
+    fontFamily: "Inter_500Medium",
+    fontSize: 14,
+    borderWidth: 1,
+    borderColor: "#D9D9D9",
+    height: 50,
+    padding: 17,
+    borderRadius: 8,
+  },
 });

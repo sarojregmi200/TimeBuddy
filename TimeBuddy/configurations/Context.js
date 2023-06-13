@@ -32,7 +32,7 @@ const Context = ({ children }) => {
   const [isHold, setIsHold] = useState({ id: "none", state: false });
 
   // state to control the popup models
-  const [popup, setPopup] = useState({ type: "none", state: false });
+  const [popup, setPopup] = useState({ type: "Routine", state: true });
   return (
     <datalayer.Provider
       value={{
