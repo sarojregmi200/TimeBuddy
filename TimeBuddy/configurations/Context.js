@@ -30,11 +30,15 @@ const Context = ({ children }) => {
 
   // state that controls says whether the list is holded or touched when the list item is touched..
   const [isHold, setIsHold] = useState({ id: "none", state: false });
+
+  // state to control the popup models
+  const [popup, setPopup] = useState({ type: "none", state: true });
   return (
     <datalayer.Provider
       value={{
         routine: [routineInfo, setRoutineInfo],
         listItem: [isHold, setIsHold],
+        popup: [popup, setPopup],
       }}
     >
       {children}
