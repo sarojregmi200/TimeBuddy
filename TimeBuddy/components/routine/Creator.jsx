@@ -1,5 +1,5 @@
 import { View, Text, TextInput } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 // stylesheet
 import styles from "../../styles/components/routine/style.creator.js";
@@ -12,19 +12,51 @@ import Days from "../../components/routine/Days.jsx";
 import Disposer from "./Disposer.jsx";
 import Button from "../global/Button.jsx";
 
+// external package
+import * as Crypto from "expo-crypto";
+
 const Creator = () => {
   // contains popup type and state
   const {
     popup: [popup],
+    routine: [, setRoutineInfo],
   } = useContext(datalayer);
+
+  const [creationState, setCreationState] = useState();
+  // data model creation state
+  // {type: "Routine", data:{
+  //   id:"routineId",
+  //   name:"name",
+  //   repeat: [0, 0, 0, 0, 0, 0, 0],
+  //   tasks:[],
+  // }}
+
+  // {type: "task", data:{
+  //     id:"taskid"
+  //     ,name:"task name",
+  //     time: "time in some format"
+  //   }}
 
   const handleCreation = () => {};
 
-  const type = popup.type;
   // type indicates the type of creator
-  // either routine creator or task creator.
+  // either Routine or Task.
+  const type = popup.type;
 
-  const startingDays = [0, 0, 0, 0, 0, 0, 0];
+  // set the initial state according to the active popup mode.
+  useEffect(() => {
+    setCreationState({
+      id: Crypto.randomUUID(),
+      type,
+      name: null,
+      data:
+        type === "Routine"
+          ? { tasks: [], repeat: [0, 0, 0, 0, 0, 0, 0] }
+          : { time: null },
+    });
+  }, []);
+  console.log(creationState);
+
   return (
     <>
       {popup.state && (
@@ -58,7 +90,11 @@ const Creator = () => {
               {popup.type === "Routine" ? (
                 <View style={styles.repeatContainer}>
                   <Text style={styles.label}>Repeat</Text>
-                  <Days data={startingDays} status={true} creation={true} />
+                  <Days
+                    data={creationState?.data?.repeat || [0, 0, 0, 0, 0, 0, 0]}
+                    status={true}
+                    creation={true}
+                  />
                 </View>
               ) : (
                 <View style={styles.timeContainer}>
