@@ -2,7 +2,7 @@ import { View, Text, Pressable } from "react-native";
 import React from "react";
 
 import styles from "../../styles/components/routine/style.days.js";
-const Days = ({ data, status, creation }) => {
+const Days = ({ data, status, creation, setCreation }) => {
   // @params
   // data = days active and inactive list such as:
   // type :array
@@ -24,7 +24,19 @@ const Days = ({ data, status, creation }) => {
         : styles.activeDayTxt
       : consumer === "txt" && !status && styles.offInactiveDayText;
 
-  const handleClick = () => {};
+  const handleClick = (index) => {
+    const newArrayActive = data.map((item, ind) =>
+      ind === index ? (!item && 1) || 0 : item
+    );
+    setCreation((previousState) => {
+      return {
+        ...previousState,
+        data: {
+          repeat: [...newArrayActive],
+        },
+      };
+    });
+  };
   return (
     <View style={styles.daysContainer}>
       {days.map((day, index) => {
@@ -39,7 +51,7 @@ const Days = ({ data, status, creation }) => {
               creation && styles.creatorModeCon,
             ]}
             key={index}
-            onPress={() => creation && handleClick()}
+            onPress={() => creation && handleClick(index)}
           >
             <Text
               style={[

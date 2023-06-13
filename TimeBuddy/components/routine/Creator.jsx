@@ -92,6 +92,7 @@ const Creator = () => {
                   <Text style={styles.label}>Repeat</Text>
                   <Days
                     data={creationState?.data?.repeat || [0, 0, 0, 0, 0, 0, 0]}
+                    setCreation={setCreationState}
                     status={true}
                     creation={true}
                   />
