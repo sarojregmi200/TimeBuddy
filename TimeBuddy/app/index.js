@@ -8,10 +8,22 @@ import Button from "../components/global/Button.jsx";
 // context api layer
 import { datalayer } from "../configurations/Context.js";
 
+// expo router
+import { useRouter } from "expo-router";
+
 const HomeScreen = () => {
   // data from the data layer
-  const data = useContext(datalayer);
+  const {
+    popup: [, setPopup],
+  } = useContext(datalayer);
 
+  // to change the route.
+  const router = useRouter();
+
+  const handleAddRoutine = () => {
+    router.push("Routine");
+    setPopup({ type: "Routine", state: true });
+  };
   return (
     <View style={styles.mainContainer}>
       {/* illustration */}
@@ -28,6 +40,7 @@ const HomeScreen = () => {
       <Button
         data={{ txt: "Create Routine" }}
         style={{ body: styles.buttonBody, txt: styles.buttonTxt }}
+        handleEvent={() => handleAddRoutine()}
       />
     </View>
   );

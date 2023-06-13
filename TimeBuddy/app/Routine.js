@@ -20,7 +20,12 @@ import Creator from "../components/routine/Creator.jsx";
 const Routine = ({}) => {
   const {
     routine: [routineInfo],
+    popup: [, setPopup],
   } = useContext(datalayer);
+
+  const handleAddRoutine = () => {
+    setPopup({ type: "Routine", state: true });
+  };
 
   return (
     <>
@@ -30,7 +35,7 @@ const Routine = ({}) => {
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Routines</Text>
           {/*  add icon */}
-          <Pressable style={styles.IconContainer}>
+          <Pressable style={styles.IconContainer} onPress={handleAddRoutine}>
             <Add />
           </Pressable>
         </View>
