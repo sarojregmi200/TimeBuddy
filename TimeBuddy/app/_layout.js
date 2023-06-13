@@ -4,9 +4,9 @@ import { SplashScreen, Stack } from "expo-router";
 import {
   useFonts,
   Poppins_400Regular,
+  Poppins_500Medium,
   Poppins_600SemiBold,
   Poppins_700Bold,
-  Poppins_500Medium,
 } from "@expo-google-fonts/poppins";
 import {
   Inter_400Regular,

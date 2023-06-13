@@ -34,11 +34,21 @@ const Days = ({ data, status, creation }) => {
               styles.dayContainer,
               index > 0 && styles.notFirstTxtCon,
               activeStyle(index, "container"),
+
+              // to change the size of the container when creating routine
+              creation && styles.creatorModeCon,
             ]}
             key={index}
             onPress={() => creation && handleClick()}
           >
-            <Text style={[styles.dayTxt, activeStyle(index, "txt")]}>
+            <Text
+              style={[
+                styles.dayTxt,
+                activeStyle(index, "txt"),
+                // to change the size of the txt when creating routine
+                creation && styles.creatorModeTxt,
+              ]}
+            >
               {day}
             </Text>
           </Pressable>

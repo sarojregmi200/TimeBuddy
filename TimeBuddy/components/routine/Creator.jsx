@@ -10,12 +10,15 @@ import { datalayer } from "../../configurations/Context.js";
 import Days from "../../components/routine/Days.jsx";
 // used to dispose the popup i mean close the popup
 import Disposer from "./Disposer.jsx";
+import Button from "../global/Button.jsx";
 
 const Creator = () => {
   // contains popup type and state
   const {
     popup: [popup],
   } = useContext(datalayer);
+
+  const handleCreation = () => {};
 
   const type = popup.type;
   // type indicates the type of creator
@@ -64,6 +67,16 @@ const Creator = () => {
                   {/* arrow btn to indicate it is a time picker */}
                 </View>
               )}
+
+              {/* action Btn */}
+
+              <Button
+                data={{
+                  txt: popup.type === "Routine" ? "Add Routine" : "Add Task",
+                }}
+                style={{ body: styles.btnBody, txt: styles.btnTxt }}
+                handleEvent={handleCreation}
+              />
             </View>
           </View>
         </>

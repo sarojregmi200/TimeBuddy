@@ -45,4 +45,21 @@ export default StyleSheet.create({
     padding: 17,
     borderRadius: 8,
   },
+  btnBody: {
+    width: 250,
+    height: 60,
+    backgroundColor: "#5CBCA8",
+    borderRadius: 19,
+    marginTop: 40,
+    marginLeft: "auto",
+    marginRight: "auto",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  btnTxt: {
+    color: "white",
+    fontFamily: "Poppins_500Medium",
+    fontSize: 16,
+  },
 });

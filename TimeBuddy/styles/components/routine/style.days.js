@@ -3,6 +3,12 @@ import { Dimensions, StyleSheet } from "react-native";
 // to make the days responsive
 const optimalSize = (Dimensions.get("screen").width - 230) / 7;
 
+// to make the days containers and txt bigger since there is no other element in the row in the creator mode
+const optimalCreatorMode = (Dimensions.get("screen").width - (80 + 10 * 6)) / 7;
+//  80 is the padding horizontal on total i.e 40 each side
+// 10*6 is the inner margin between each day
+// and /7 cause there are 7 days
+
 export default StyleSheet.create({
   daysContainer: {
     flexDirection: "row",
@@ -40,5 +46,13 @@ export default StyleSheet.create({
   },
   offInactiveDayText: {
     color: "rgba(114, 114, 114, 0.5)",
+  },
+  creatorModeCon: {
+    height: optimalCreatorMode,
+
+    width: optimalCreatorMode,
+  },
+  creatorModeTxt: {
+    fontSize: optimalCreatorMode / 2.5,
   },
 });
