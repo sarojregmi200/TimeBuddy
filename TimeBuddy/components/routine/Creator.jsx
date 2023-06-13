@@ -18,37 +18,66 @@ import * as Crypto from "expo-crypto";
 const Creator = () => {
   // contains popup type and state
   const {
-    popup: [popup],
+    popup: [popup, setPopup],
     routine: [, setRoutineInfo],
   } = useContext(datalayer);
 
   const [creationState, setCreationState] = useState();
   // data model creation state
   // {type: "Routine", data:{
-  //   id:"routineId",
+  //   _id:"routineId",
   //   name:"name",
   //   repeat: [0, 0, 0, 0, 0, 0, 0],
   //   tasks:[],
   // }}
 
   // {type: "task", data:{
-  //     id:"taskid"
+  //     _id:"taskid"
   //     ,name:"task name",
   //     time: "time in some format"
   //   }}
-
-  const handleCreation = () => {};
 
   // type indicates the type of creator
   // either Routine or Task.
   const type = popup.type;
 
+  // validation of the creation either routine or task
+  const [valid, setValid] = useState({ name: false, other: true });
+  // name will be true when the name of the task or the routine is not empty.
+  // no restriction on the length or character so, it can be ._anything.
+  // other means repeat or time for the routine and the task respectively.
+  //  for the time being I will be validating the name only
+
+  const handleCreation = () => {
+    if (type === "Routine" && valid.name) {
+      // add the routine
+      setRoutineInfo((prevData) => {
+        return [
+          ...prevData,
+          {
+            _id: creationState?._id,
+            name: creationState?.name,
+            days: creationState?.data?.repeat,
+            isOn: false,
+            tasks: creationState?.data?.tasks,
+          },
+        ];
+      });
+
+      // closing the popup
+      setPopup({
+        type: "none",
+        state: false,
+      });
+    }
+  };
+
   // set the initial state according to the active popup mode.
   useEffect(() => {
     setCreationState({
-      id: Crypto.randomUUID(),
+      _id: Crypto.randomUUID(),
       type,
-      name: null,
+      name: "",
       data:
         type === "Routine"
           ? { tasks: [], repeat: [0, 0, 0, 0, 0, 0, 0] }
@@ -83,6 +112,18 @@ const Creator = () => {
                   placeholder="Ex: Morning Routine"
                   style={styles.nameInputBox}
                   placeholderTextColor={"#9F9F9F"}
+                  onChangeText={(newTxt) => {
+                    setValid((prevState) => {
+                      return {
+                        ...prevState,
+                        name: newTxt.length > 0,
+                      };
+                    });
+                    setCreationState((prevState) => ({
+                      ...prevState,
+                      name: newTxt,
+                    }));
+                  }}
                 />
               </View>
 

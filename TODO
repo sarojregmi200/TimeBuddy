@@ -37,4 +37,12 @@ Universal:
 Bugs:
   ✔ keyboard pushes content upward @done(23-06-13 15:12)
   ☐ toggle btn press is not always registerd or it is slow.
+  ☐ toggle btn not working in the new routine
   ✔ nav bar z index and container issue @done(23-06-13 13:53)
+  
+
+Next version Features:
+  ☐ Proper validation while creating a task or routine.
+  ☐ Animations and micro interactions
+  ☐ proper ui rendering using skia instead of using the images.
+

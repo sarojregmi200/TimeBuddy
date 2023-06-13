@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, ScrollView } from "react-native";
 import React, { useContext, useEffect } from "react";
 
 // stylesheet
@@ -26,7 +26,7 @@ const Routine = ({}) => {
 
   return (
     <>
-      <View style={styles.mainContainer}>
+      <ScrollView style={styles.mainContainer}>
         <DeleteBtn />
         {/* title with add icon*/}
         <View style={styles.titleContainer}>
@@ -42,7 +42,7 @@ const Routine = ({}) => {
             <ListItem data={routine} type={"Routine"} key={index} />
           ))}
         </View>
-      </View>
+      </ScrollView>
     </>
   );
 };
