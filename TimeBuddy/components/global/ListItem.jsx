@@ -17,6 +17,7 @@ import ToggleBtn from "../routine/ToggleBtn.jsx";
 
 // context
 import { datalayer } from "../../configurations/Context.js";
+import DeleteBtn from "../routine/DeleteBtn.jsx";
 
 const ListItem = ({ data }) => {
   // state that controls the state of the on off button.
@@ -83,48 +84,50 @@ const ListItem = ({ data }) => {
   };
 
   return (
-    <Pressable
-      onTouchStart={handleTouchBegin}
-      onTouchEnd={handleTouchEnd}
-      delayLongPress={500}
-      style={[isHold.state && isHold.id === data._id && { zIndex: 20 }]}
-    >
-      <Animated.View
-        style={
-          isHold.state
-            ? isHold.id == data._id
-              ? {
-                  transform: [{ translateX: pan.x }, { translateY: pan.y }],
-                  zIndex: 20,
-                }
-              : {
-                  opacity: 0.5,
-                }
-            : {
-                opacity: 1,
-              }
-        }
-        ref={animatedViewRef}
-        {...panResponder.panHandlers}
+    <>
+      <Pressable
+        onTouchStart={handleTouchBegin}
+        onTouchEnd={handleTouchEnd}
+        delayLongPress={500}
+        style={[isHold.state && isHold.id === data._id && { zIndex: 20 }]}
       >
-        <View style={[styles.itemContainer]}>
-          <Pressable style={styles.leftSection}>
-            {/* title */}
-            <Text style={[styles.title, !toggleBtn && styles.inactiveTitle]}>
-              {data.name}
-            </Text>
-            {/* days */}
-            <Days data={data.days} status={toggleBtn} />
-          </Pressable>
+        <Animated.View
+          style={
+            isHold.state
+              ? isHold.id == data._id
+                ? {
+                    transform: [{ translateX: pan.x }, { translateY: pan.y }],
+                    zIndex: 20,
+                  }
+                : {
+                    opacity: 0.5,
+                  }
+              : {
+                  opacity: 1,
+                }
+          }
+          ref={animatedViewRef}
+          {...panResponder.panHandlers}
+        >
+          <View style={[styles.itemContainer]}>
+            <Pressable style={styles.leftSection}>
+              {/* title */}
+              <Text style={[styles.title, !toggleBtn && styles.inactiveTitle]}>
+                {data.name}
+              </Text>
+              {/* days */}
+              <Days data={data.days} status={toggleBtn} />
+            </Pressable>
 
-          {/* toggle btn */}
-          <ToggleBtn
-            controls={[toggleBtn, setToggleBtn]}
-            routineId={data._id}
-          />
-        </View>
-      </Animated.View>
-    </Pressable>
+            {/* toggle btn */}
+            <ToggleBtn
+              controls={[toggleBtn, setToggleBtn]}
+              routineId={data._id}
+            />
+          </View>
+        </Animated.View>
+      </Pressable>
+    </>
   );
 };
 

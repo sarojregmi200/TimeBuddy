@@ -21,6 +21,7 @@ import Context from "../configurations/Context.js";
 // components
 import BottomNavigation from "../components/global/BottomNavigation.jsx";
 import Creator from "../components/routine/Creator.jsx";
+import DeleteBtn from "../components/routine/DeleteBtn.jsx";
 
 export default layout = () => {
   // for loading the fonts
@@ -45,8 +46,14 @@ export default layout = () => {
         initialRouteName="HomeScreen"
         screenOptions={{ headerShown: false }}
       />
+
+      {/* navigation  */}
       <BottomNavigation />
+
+      {/* popups */}
       <Creator />
+
+      <DeleteBtn />
     </Context>
   );
 };

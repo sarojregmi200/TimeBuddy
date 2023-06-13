@@ -9,7 +9,6 @@ import { datalayer } from "../configurations/Context.js";
 
 // components
 import ListItem from "../components/global/ListItem.jsx";
-import DeleteBtn from "../components/routine/DeleteBtn.jsx";
 
 //icons
 import Add from "../assets/svgs/Add.svg";
@@ -25,9 +24,8 @@ const Routine = ({}) => {
   };
 
   return (
-    <>
-      <ScrollView style={styles.mainContainer}>
-        <DeleteBtn />
+    <ScrollView>
+      <View style={styles.mainContainer}>
         {/* title with add icon*/}
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Routines</Text>
@@ -42,8 +40,8 @@ const Routine = ({}) => {
             <ListItem data={routine} type={"Routine"} key={index} />
           ))}
         </View>
-      </ScrollView>
-    </>
+      </View>
+    </ScrollView>
   );
 };
 

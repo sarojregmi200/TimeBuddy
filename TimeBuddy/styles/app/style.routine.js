@@ -6,6 +6,7 @@ export default StyleSheet.create({
     width: Dimensions.get("screen").width,
     paddingVertical: 50,
     backgroundColor: "white",
+    minHeight: Dimensions.get("screen").height,
   },
   titleContainer: {
     width: Dimensions.get("screen").width,
