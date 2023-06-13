@@ -32,7 +32,10 @@ const Context = ({ children }) => {
   const [isHold, setIsHold] = useState({ id: "none", state: false });
 
   // state to control the popup models
-  const [popup, setPopup] = useState({ type: "Routine", state: true });
+  const [popup, setPopup] = useState({ type: "Routine", state: false });
+
+  // state that controls the validity of the creation
+  const [valid, setValid] = useState(false);
 
   return (
     <datalayer.Provider
@@ -40,6 +43,7 @@ const Context = ({ children }) => {
         routine: [routineInfo, setRoutineInfo],
         listItem: [isHold, setIsHold],
         popup: [popup, setPopup],
+        form: [valid, setValid],
       }}
     >
       {children}

@@ -56,6 +56,7 @@ export default StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    // opacity: valid ? 1 : 0.5,
   },
   btnTxt: {
     color: "white",

@@ -3,7 +3,10 @@ import React from "react";
 
 const Button = ({ data, style, handleEvent }) => {
   return (
-    <Pressable onPress={handleEvent} style={{ ...style.body }}>
+    <Pressable
+      onPress={handleEvent}
+      style={[{ ...style.body }, { ...style?.visibility }]}
+    >
       <Text style={{ ...style.txt }}>{data.txt}</Text>
     </Pressable>
   );

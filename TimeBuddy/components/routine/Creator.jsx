@@ -41,15 +41,12 @@ const Creator = () => {
   // either Routine or Task.
   const type = popup.type;
 
-  // validation of the creation either routine or task
-  const [valid, setValid] = useState({ name: false, other: true });
-  // name will be true when the name of the task or the routine is not empty.
-  // no restriction on the length or character so, it can be ._anything.
-  // other means repeat or time for the routine and the task respectively.
-  //  for the time being I will be validating the name only
-
+  // checks the validity of the form i.e the name is not empty for now
+  const [valid, setValid] = useState(false);
+  console.log(valid);
+  // handles the creation of the state and updating the existing data layer state
   const handleCreation = () => {
-    if (type === "Routine" && valid.name) {
+    if (type === "Routine" && valid) {
       // add the routine
       setRoutineInfo((prevData) => {
         return [
@@ -84,8 +81,6 @@ const Creator = () => {
           : { time: null },
     });
   }, []);
-  console.log(creationState);
-
   return (
     <>
       {popup.state && (
@@ -113,12 +108,7 @@ const Creator = () => {
                   style={styles.nameInputBox}
                   placeholderTextColor={"#9F9F9F"}
                   onChangeText={(newTxt) => {
-                    setValid((prevState) => {
-                      return {
-                        ...prevState,
-                        name: newTxt.length > 0,
-                      };
-                    });
+                    setValid(newTxt.length > 0);
                     setCreationState((prevState) => ({
                       ...prevState,
                       name: newTxt,
@@ -152,7 +142,11 @@ const Creator = () => {
                 data={{
                   txt: popup.type === "Routine" ? "Add Routine" : "Add Task",
                 }}
-                style={{ body: styles.btnBody, txt: styles.btnTxt }}
+                style={{
+                  body: styles.btnBody,
+                  txt: styles.btnTxt,
+                  visibility: { opacity: valid ? 1 : 0.7 },
+                }}
                 handleEvent={handleCreation}
               />
             </View>
