@@ -1,8 +1,17 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React from "react";
 
 import styles from "../../styles/components/routine/style.days.js";
-const Days = ({ data, status }) => {
+const Days = ({ data, status, creation }) => {
+  // @params
+  // data = days active and inactive list such as:
+  // type :array
+  // eg: [0,1,1,0,1,1,0]
+  // status to see if the routine is active or not.
+  // type :boolean
+  // creation : boolean states that if the routine is
+  //            being created or not.
+
   const days = ["M", "T", "W", "T", "F", "S", "S"];
 
   const activeStyle = (toCheck, consumer) =>
@@ -14,22 +23,25 @@ const Days = ({ data, status }) => {
             styles.offActiveDayContainer
         : styles.activeDayTxt
       : consumer === "txt" && !status && styles.offInactiveDayText;
+
+  const handleClick = () => {};
   return (
     <View style={styles.daysContainer}>
       {days.map((day, index) => {
         return (
-          <View
+          <Pressable
             style={[
               styles.dayContainer,
               index > 0 && styles.notFirstTxtCon,
               activeStyle(index, "container"),
             ]}
             key={index}
+            onPress={() => creation && handleClick()}
           >
             <Text style={[styles.dayTxt, activeStyle(index, "txt")]}>
               {day}
             </Text>
-          </View>
+          </Pressable>
         );
       })}
     </View>

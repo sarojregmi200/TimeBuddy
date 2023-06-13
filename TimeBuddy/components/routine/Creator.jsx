@@ -3,10 +3,13 @@ import React, { useContext } from "react";
 
 // stylesheet
 import styles from "../../styles/components/routine/style.creator.js";
+//context
+import { datalayer } from "../../configurations/Context.js";
 
+// components
+import Days from "../../components/routine/Days.jsx";
 // used to dispose the popup i mean close the popup
 import Disposer from "./Disposer.jsx";
-import { datalayer } from "../../configurations/Context.js";
 
 const Creator = () => {
   // contains popup type and state
@@ -17,6 +20,8 @@ const Creator = () => {
   const type = popup.type;
   // type indicates the type of creator
   // either routine creator or task creator.
+
+  const startingDays = [0, 0, 0, 0, 0, 0, 0];
   return (
     <>
       {popup.state && (
@@ -50,6 +55,7 @@ const Creator = () => {
               {popup.type === "Routine" ? (
                 <View style={styles.repeatContainer}>
                   <Text style={styles.label}>Repeat</Text>
+                  <Days data={startingDays} status={true} creation={true} />
                 </View>
               ) : (
                 <View style={styles.timeContainer}>

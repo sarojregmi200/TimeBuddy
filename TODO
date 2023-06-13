@@ -23,7 +23,7 @@ RoutineScreen:
   ✔ create routine and create task popup. @started(23-06-13 11:18) @done(23-06-13 12:04) @lasted(46m37s)
   ✘ create routine and create task route. @cancelled(23-06-13 11:18)
   ☐ create routine. @started(23-06-13 12:04)
-  ☐ create task. @started(23-06-13 12:04)
+  ☐ create task.
 
 Universal:
   ✔ navigation without icon @started(23-06-04 17:43) @done(23-06-04 22:47) @lasted(5h4m36s)
@@ -36,4 +36,5 @@ Universal:
 
 Bugs:
   ☐ keyboard pushes content upward
-  
+  ☐ toggle btn press is not always registerd or it is slow.
+  ☐ nav bar z index and container issue
