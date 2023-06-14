@@ -9,7 +9,12 @@ import { datalayer } from "../../configurations/Context";
 
 // styles
 import styles from "../../styles/app/style.individualRoutine.js";
+
+//components
 import ListItem from "../../components/global/ListItem";
+
+// icons
+import AddBtn from "../../assets/svgs/Add.svg";
 
 const IndividualRoutine = () => {
   // extract the routine id from the url
@@ -31,27 +36,24 @@ const IndividualRoutine = () => {
       });
   }, []);
 
-  console.log(currentRoutine.tasks);
   return (
-    <ScrollView>
-      <View style={styles.mainContainer}>
-        <View style={styles.topContainer}>
-          <View style={styles.BackBtn}></View>
-
-          <Text style={styles.Title}>{routineInfo.name}</Text>
-          <Pressable style={styles.addBtn}></Pressable>
-        </View>
-
+    <View style={styles.mainContainer}>
+      <View style={styles.topContainer}>
+        <Text style={styles.title}>{currentRoutine.name}</Text>
+        <Pressable style={styles.addBtn}>
+          <AddBtn />
+        </Pressable>
+      </View>
+      <ScrollView>
         <View style={styles.tasksContainer}>
           {currentRoutine?.tasks?.map((task, index) => {
-            console.log(task);
             return (
               <ListItem type={"Task"} data={task} ind={index} key={index} />
             );
           })}
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 

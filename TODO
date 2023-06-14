@@ -38,6 +38,7 @@ Universal:
   ✔ add the delete icon @started(23-06-09 17:02) @done(23-06-11 20:30) @lasted(2d3h28m50s)
   ☐ auth.
   ☐ universal state server and user level.
+  ☐ push notification
 
 Bugs:
   ✔ keyboard pushes content upward @done(23-06-13 15:12)
