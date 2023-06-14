@@ -2,7 +2,7 @@ import { View, Text, Pressable } from "react-native";
 import React from "react";
 
 // to handle the routes
-import { useRouter, usePathname } from "expo-router";
+import { useRouter, usePathname, useSegments } from "expo-router";
 
 // importing the styles
 import styles from "./../../styles/components/style.bottomNavigation.js";
@@ -20,7 +20,9 @@ const BottomNavigation = () => {
   const handleNavigation = (navigateTo) => router.push(navigateTo);
 
   // gets the active route
-  const ActivePathname = usePathname();
+  const ActivePathname = useSegments()[0] || "/";
+  // use segment returns empty array in homescreen
+  console.log({ ActivePathname });
 
   // to change the style of the active path
   const getActiveClass = (pathName, consumer) =>
@@ -49,12 +51,12 @@ const BottomNavigation = () => {
       <Pressable
         style={styles.routineContainer}
         onPress={() => {
-          handleNavigation("/Routine");
+          handleNavigation("Routine");
         }}
       >
         {/* routine icon */}
-        <Routine stroke={getActiveClass("/Routine", "icon")} />
-        <Text style={[styles.navTxt, getActiveClass("/Routine", "txt")]}>
+        <Routine stroke={getActiveClass("Routine", "icon")} />
+        <Text style={[styles.navTxt, getActiveClass("Routine", "txt")]}>
           Routine
         </Text>
       </Pressable>
@@ -63,16 +65,16 @@ const BottomNavigation = () => {
       <Pressable
         style={styles.profileContainer}
         onPress={() => {
-          handleNavigation("/Profile");
+          handleNavigation("Profile");
         }}
       >
         {/* profile icon */}
 
         <Profile
-          fill={getActiveClass("/Profile", "icon")}
-          stroke={getActiveClass("/Profile", "icon")}
+          fill={getActiveClass("Profile", "icon")}
+          stroke={getActiveClass("Profile", "icon")}
         />
-        <Text style={[styles.navTxt, getActiveClass("/Profile", "txt")]}>
+        <Text style={[styles.navTxt, getActiveClass("Profile", "txt")]}>
           Profile
         </Text>
       </Pressable>

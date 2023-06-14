@@ -92,8 +92,6 @@ const ListItem = ({ data, ind }) => {
     // since, index starts from 0 if Topoffset > (screenHeigh - 250) - ((index * 165) + 82.5 ) during release.
     // the location where delete is valid, from btm.
 
-    top.addListener(({ _value }) => (getValue = _value));
-
     if (
       Number.parseInt(JSON.stringify(top)) >
       Dimensions.get("screen").height - 250 - (ind * 165 + 82.5 + 80)

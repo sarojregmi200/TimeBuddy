@@ -2,16 +2,16 @@ import { View, Text, Pressable, ScrollView } from "react-native";
 import React, { useContext, useEffect } from "react";
 
 // stylesheet
-import styles from "../styles/app/style.routine.js";
+import styles from "../../styles/app/style.routine.js";
 
 // to get the routine data
-import { datalayer } from "../configurations/Context.js";
+import { datalayer } from "../../configurations/Context.js";
 
 // components
-import ListItem from "../components/global/ListItem.jsx";
+import ListItem from "../../components/global/ListItem.jsx";
 
 //icons
-import Add from "../assets/svgs/Add.svg";
+import Add from "../../assets/svgs/Add.svg";
 
 const Routine = ({}) => {
   const {
