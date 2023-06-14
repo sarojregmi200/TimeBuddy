@@ -1,4 +1,4 @@
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, Pressable } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 
 // stylesheet
@@ -14,12 +14,16 @@ import Button from "../global/Button.jsx";
 
 // external package
 import * as Crypto from "expo-crypto";
+import { useSegments, useSearchParams } from "expo-router";
+
+// icon
+import ArrowBtn from "../../assets/svgs/sideArrow.svg";
 
 const Creator = () => {
   // contains popup type and state
   const {
     popup: [popup, setPopup],
-    routine: [routineInfo, setRoutineInfo],
+    routine: [, setRoutineInfo],
   } = useContext(datalayer);
 
   const [creationState, setCreationState] = useState();
@@ -46,9 +50,11 @@ const Creator = () => {
 
   // handles the creation of the state and updating the existing data layer state
   const handleCreation = () => {
-    if (type === "Routine" && valid) {
-      // add the routine
-      setRoutineInfo((prevData) => {
+    if (!valid) return;
+
+    // add the routine
+    setRoutineInfo((prevData) => {
+      if (type === "Routine") {
         return [
           ...prevData,
           {
@@ -59,14 +65,45 @@ const Creator = () => {
             tasks: creationState?.data?.tasks,
           },
         ];
-      });
+      } else {
+        // creating a task
+        // getting the parent routine
+        const { routine_id } = useSearchParams();
 
-      // closing the popup
-      setPopup({
-        type: "none",
-        state: false,
-      });
-    }
+        //  getting the parent routine
+        const parentRoutine = prevData.filter(
+          (routine) => routine._id === routine_id
+        )[0];
+
+        console.log(parentRoutine);
+        parentRoutine.tasks.push({
+          _id: Crypto.randomUUID(),
+          name: creationState?.name,
+          time: "time",
+        });
+        return [
+          ...prevData.filter((routine) => routine._id !== routine_id),
+          { ...parentRoutine },
+        ];
+      }
+    });
+
+    // closing the popup
+    setPopup({
+      type: "none",
+      state: false,
+    });
+
+    // resetting the creation state
+    setCreationState({
+      _id: "",
+      type,
+      name: "",
+      data:
+        type === "Routine"
+          ? { tasks: [], repeat: [0, 0, 0, 0, 0, 0, 0] }
+          : { time: null },
+    });
   };
 
   // set the initial state according to the active popup mode.
@@ -104,7 +141,11 @@ const Creator = () => {
               <View style={styles.nameContainer}>
                 <Text style={styles.label}>Name</Text>
                 <TextInput
-                  placeholder="Ex: Morning Routine"
+                  placeholder={
+                    popup.type === "Routine"
+                      ? "Ex: Morning Routine"
+                      : "Ex: Refill the water Bottle"
+                  }
                   style={styles.nameInputBox}
                   placeholderTextColor={"#9F9F9F"}
                   onChangeText={(newTxt) => {
@@ -129,11 +170,14 @@ const Creator = () => {
                   />
                 </View>
               ) : (
-                <View style={styles.timeContainer}>
-                  <Text style={styles.label}>Time</Text>
-                  <Text style={styles.selectedTime}>6:30 - 7:30</Text>
+                <Pressable style={styles.timeContainer}>
+                  <View style={styles.timeTxtContainer}>
+                    <Text style={styles.label}>Time</Text>
+                    <Text style={styles.selectedTime}>6:30 - 7:30</Text>
+                  </View>
                   {/* arrow btn to indicate it is a time picker */}
-                </View>
+                  <ArrowBtn />
+                </Pressable>
               )}
 
               {/* action Btn */}

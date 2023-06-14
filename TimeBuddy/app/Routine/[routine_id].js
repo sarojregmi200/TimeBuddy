@@ -23,6 +23,7 @@ const IndividualRoutine = () => {
   // getting all the routines
   const {
     routine: [routineInfo, setRoutineInfo],
+    popup: [, setPopup],
   } = useContext(datalayer);
 
   // holds the current routine that matches with the id in the url
@@ -48,12 +49,18 @@ const IndividualRoutine = () => {
   }, [routineInfo]);
 
   // console.log(currentRoutine);
+  const handleAddBtnPress = () => {
+    setPopup({
+      type: "Task",
+      state: true,
+    });
+  };
 
   return (
     <View style={styles.mainContainer}>
       <View style={styles.topContainer}>
         <Text style={styles.title}>{currentRoutine.name}</Text>
-        <Pressable style={styles.addBtn}>
+        <Pressable style={styles.addBtn} onPress={handleAddBtnPress}>
           <AddBtn />
         </Pressable>
       </View>

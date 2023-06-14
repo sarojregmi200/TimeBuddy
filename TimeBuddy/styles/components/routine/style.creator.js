@@ -63,4 +63,9 @@ export default StyleSheet.create({
     fontFamily: "Poppins_500Medium",
     fontSize: 16,
   },
+  timeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 });
