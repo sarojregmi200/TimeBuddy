@@ -28,6 +28,7 @@ const IndividualRoutine = () => {
   // holds the current routine that matches with the id in the url
   const [currentRoutine, setCurrentRoutine] = useState({});
 
+  // component did mount
   useEffect(() => {
     if (routineInfo && routineInfo?.length > 0)
       return setCurrentRoutine(() => {
@@ -35,6 +36,18 @@ const IndividualRoutine = () => {
         return routineInfo?.filter((e) => e._id === routine_id)[0];
       });
   }, []);
+
+  // side effect of the routine info
+  // to help delete the task
+  useEffect(() => {
+    if (routineInfo && routineInfo?.length > 0)
+      return setCurrentRoutine(() => {
+        // filtering the routine and returning the first item since filter returns an array
+        return routineInfo?.filter((e) => e._id === routine_id)[0];
+      });
+  }, [routineInfo]);
+
+  // console.log(currentRoutine);
 
   return (
     <View style={styles.mainContainer}>
@@ -48,7 +61,13 @@ const IndividualRoutine = () => {
         <View style={styles.tasksContainer}>
           {currentRoutine?.tasks?.map((task, index) => {
             return (
-              <ListItem type={"Task"} data={task} ind={index} key={index} />
+              <ListItem
+                type={"Task"}
+                data={task}
+                ind={index}
+                key={index}
+                parentId={routine_id}
+              />
             );
           })}
         </View>

@@ -22,7 +22,7 @@ import ToggleBtn from "../routine/ToggleBtn.jsx";
 // context
 import { datalayer } from "../../configurations/Context.js";
 
-const ListItem = ({ data, ind, type }) => {
+const ListItem = ({ data, ind, type, parentId = false }) => {
   // state that controls the state of the on off button.
   const [toggleBtn, setToggleBtn] = useState(data.isOn);
 
@@ -103,11 +103,39 @@ const ListItem = ({ data, ind, type }) => {
     if (
       Number.parseInt(JSON.stringify(top)) >
       Dimensions.get("screen").height - 250 - (ind * 165 + 82.5 + 80)
-    )
-      setRoutineInfo((routines) => {
-        return [...routines.filter((routine) => routine._id !== data._id)];
-      });
+    ) {
+      if (type === "Routine") {
+        setRoutineInfo((routines) => {
+          return [...routines.filter((routine) => routine._id !== data._id)];
+        });
+      } else {
+        setRoutineInfo((routines) => {
+          console.log("One item Is going to be deleted");
+          // getting the parent routine
+          const parentRoutine = routines.filter(
+            (routine) => routine._id === parentId
+          )[0];
 
+          // updating the task in the parent routine
+          const updatedRoutine = {
+            ...parentRoutine,
+            ...{
+              tasks: [
+                ...parentRoutine.tasks.filter((task) => task._id !== data._id),
+              ],
+            },
+          };
+
+          const updatedRoutines = [
+            ...routines.filter((routine) => routine._id !== parentId),
+            { ...updatedRoutine },
+          ];
+          console.log(updatedRoutine);
+          // return a new routine array
+          return [...updatedRoutines];
+        });
+      }
+    }
     // resetting the pan on hold leave
     pan.setOffset({ x: 0, y: 0 });
   };
