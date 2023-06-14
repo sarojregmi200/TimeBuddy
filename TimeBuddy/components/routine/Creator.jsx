@@ -19,12 +19,20 @@ import { useSegments, useSearchParams } from "expo-router";
 // icon
 import ArrowBtn from "../../assets/svgs/sideArrow.svg";
 
+// external modules
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 const Creator = () => {
   // contains popup type and state
   const {
     popup: [popup, setPopup],
     routine: [, setRoutineInfo],
   } = useContext(datalayer);
+
+  const [timePickerVisibility, setTimePickerVisibility] = useState({
+    first: false,
+    second: false,
+  });
 
   const [creationState, setCreationState] = useState();
   // data model creation state
@@ -79,7 +87,7 @@ const Creator = () => {
         parentRoutine.tasks.push({
           _id: Crypto.randomUUID(),
           name: creationState?.name,
-          time: "time",
+          time: creationState?.data?.time,
         });
         return [
           ...prevData.filter((routine) => routine._id !== routine_id),
@@ -102,7 +110,7 @@ const Creator = () => {
       data:
         type === "Routine"
           ? { tasks: [], repeat: [0, 0, 0, 0, 0, 0, 0] }
-          : { time: null },
+          : { time: { start: "", end: "" } },
     });
   };
 
@@ -118,6 +126,13 @@ const Creator = () => {
           : { time: null },
     });
   }, []);
+
+  const handleTimeInput = () => {
+    setTimePickerVisibility({
+      first: true,
+      second: false,
+    });
+  };
   return (
     <>
       {popup.state && (
@@ -170,7 +185,10 @@ const Creator = () => {
                   />
                 </View>
               ) : (
-                <Pressable style={styles.timeContainer}>
+                <Pressable
+                  style={styles.timeContainer}
+                  onPress={handleTimeInput}
+                >
                   <View style={styles.timeTxtContainer}>
                     <Text style={styles.label}>Time</Text>
                     <Text style={styles.selectedTime}>6:30 - 7:30</Text>
@@ -195,6 +213,53 @@ const Creator = () => {
               />
             </View>
           </View>
+          {/* first time picker  */}
+          <DateTimePickerModal
+            isVisible={timePickerVisibility?.first}
+            mode="time"
+            onConfirm={(time) => {
+              setCreationState((previousState) => ({
+                ...previousState,
+                time: {
+                  ...previousState?.time,
+                  ...{ first: time },
+                },
+              }));
+
+              setTimePickerVisibility({
+                first: false,
+                second: true,
+              });
+            }}
+            onCancel={() =>
+              setTimePickerVisibility((previousState) => ({
+                ...previousState,
+                first: false,
+              }))
+            }
+          />
+          {/* second time picker */}
+          <DateTimePickerModal
+            isVisible={timePickerVisibility?.second}
+            mode="time"
+            onConfirm={(time) => {
+              setCreationState((previousState) => ({
+                ...previousState,
+                time: {
+                  ...previousState?.time,
+                  ...{ second: time },
+                },
+              }));
+
+              setTimePickerVisibility({
+                first: false,
+                second: false,
+              });
+            }}
+            onCancel={() =>
+              setTimePickerVisibility({ first: false, second: false })
+            }
+          />
         </>
       )}
     </>
