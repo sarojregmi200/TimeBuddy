@@ -23,4 +23,9 @@ export default StyleSheet.create({
   inactiveTitle: {
     color: "#A5A5A5",
   },
+  date: {
+    color: "#545454",
+    fontFamily: "Poppins_500Medium",
+    fontSize: 14,
+  },
 });

@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView, Pressable } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 
 // router based
@@ -9,6 +9,7 @@ import { datalayer } from "../../configurations/Context";
 
 // styles
 import styles from "../../styles/app/style.individualRoutine.js";
+import ListItem from "../../components/global/ListItem";
 
 const IndividualRoutine = () => {
   // extract the routine id from the url
@@ -30,10 +31,27 @@ const IndividualRoutine = () => {
       });
   }, []);
 
+  console.log(currentRoutine.tasks);
   return (
-    <View style={styles.mainContainer}>
-      <Text>{currentRoutine?.name}</Text>
-    </View>
+    <ScrollView>
+      <View style={styles.mainContainer}>
+        <View style={styles.topContainer}>
+          <View style={styles.BackBtn}></View>
+
+          <Text style={styles.Title}>{routineInfo.name}</Text>
+          <Pressable style={styles.addBtn}></Pressable>
+        </View>
+
+        <View style={styles.tasksContainer}>
+          {currentRoutine?.tasks?.map((task, index) => {
+            console.log(task);
+            return (
+              <ListItem type={"Task"} data={task} ind={index} key={index} />
+            );
+          })}
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

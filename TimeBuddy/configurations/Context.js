@@ -13,18 +13,60 @@ const Context = ({ children }) => {
       name: "Morning Time routine",
       days: [1, 0, 0, 0, 1, 0, 1],
       isOn: false,
+      tasks: [
+        {
+          _id: "x234dsf3rsdf2",
+          name: "Fill the water bottle",
+          time: "6:30-7:30",
+          isOn: false,
+        },
+        {
+          _id: "yse34dsf3rsdf2",
+          name: "empty the water bottle",
+          time: "9:30-10:30",
+          isOn: true,
+        },
+      ],
     },
     {
       _id: "dsfj34dfsd",
       name: "Day Time routine",
       days: [0, 1, 0, 0, 0, 1, 0],
       isOn: true,
+      tasks: [
+        {
+          _id: "x234dsf3rsdf2",
+          name: "Fill the water bottle",
+          time: "6:30-7:30",
+          isOn: false,
+        },
+        {
+          _id: "yse34dsf3rsdf2",
+          name: "empty the water bottle",
+          time: "9:30-10:30",
+          isOn: true,
+        },
+      ],
     },
     {
       _id: "df23dsfdf",
       name: "Evening Time routine",
       days: [0, 1, 1, 1, 1, 0, 0],
       isOn: false,
+      tasks: [
+        {
+          _id: "x234dsf3rsdf2",
+          name: "Fill the water bottle",
+          time: "6:30-7:30",
+          isOn: false,
+        },
+        {
+          _id: "yse34dsf3rsdf2",
+          name: "empty the water bottle",
+          time: "9:30-10:30",
+          isOn: true,
+        },
+      ],
     },
   ]);
 

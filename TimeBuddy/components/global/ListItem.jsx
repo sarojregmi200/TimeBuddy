@@ -140,14 +140,20 @@ const ListItem = ({ data, ind, type }) => {
           {...panResponder.panHandlers}
         >
           <View style={[styles.itemContainer]}>
-            <Pressable style={styles.leftSection}>
+            <View style={styles.leftSection}>
               {/* title */}
               <Text style={[styles.title, !toggleBtn && styles.inactiveTitle]}>
                 {data.name}
               </Text>
               {/* days */}
-              <Days data={data.days} status={toggleBtn} />
-            </Pressable>
+              {type === "Routine" ? (
+                <Days data={data.days} status={toggleBtn} />
+              ) : (
+                <Text style={[styles.date, !toggleBtn && styles.inactiveTitle]}>
+                  {data.time}
+                </Text>
+              )}
+            </View>
 
             {/* toggle btn */}
             <ToggleBtn
