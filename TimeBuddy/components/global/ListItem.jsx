@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useRef, useState } from "react";
 
+// navigation
+import { useRouter } from "expo-router";
+
 // stylesheet
 import styles from "../../styles/components/style.listItem.js";
 
@@ -19,9 +22,12 @@ import ToggleBtn from "../routine/ToggleBtn.jsx";
 // context
 import { datalayer } from "../../configurations/Context.js";
 
-const ListItem = ({ data, ind }) => {
+const ListItem = ({ data, ind, type }) => {
   // state that controls the state of the on off button.
   const [toggleBtn, setToggleBtn] = useState(data.isOn);
+
+  // to change the route and send to task view from routine view on click
+  const Router = useRouter();
 
   const {
     listItem: [isHold, setIsHold],
@@ -64,8 +70,6 @@ const ListItem = ({ data, ind }) => {
   // usage 🔽
   // validates if a touch is long enough to be considered a hold or not..
 
-  const item = useRef(); // reference of the main container
-
   const handleTouchBegin = () => {
     // after the 500 milliseconds of holding the item it is activated as a hold..
     pan.setOffset({ x: 0, y: 0 });
@@ -77,6 +81,10 @@ const ListItem = ({ data, ind }) => {
     }, 500);
   };
   const handleTouchEnd = () => {
+    if (type === "Routine" && !isHold.state) {
+      Router.push(`Routine/${data._id}`);
+    }
+
     // resetting the state to false to hide the del btn
     setIsHold({ id: "none", state: false });
 
