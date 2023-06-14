@@ -37,7 +37,7 @@ const Routine = ({}) => {
         <View style={[styles.routines]}>
           {/* list items */}
           {routineInfo.map((routine, index) => (
-            <ListItem data={routine} type={"Routine"} key={index} />
+            <ListItem data={routine} type={"Routine"} key={index} ind={index} />
           ))}
         </View>
       </View>

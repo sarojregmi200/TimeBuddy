@@ -24,8 +24,8 @@ RoutineScreen:
   ✘ create routine and create task route. @cancelled(23-06-13 11:18)
   ✔ create routine. @started(23-06-13 12:04) @done(23-06-13 21:03) @lasted(8h59m13s)
   ☐ create task.
-  ☐ delte routine.
-  ☐ delete btn z index @started(23-06-13 22:46)
+  ☐ delte routine. @started(23-06-13 23:03)
+  ✘ delete btn z index @started(23-06-13 22:46) @cancelled(23-06-13 23:03) @wasted(17m37s)
   ☐ scrollable content
 
 Universal:

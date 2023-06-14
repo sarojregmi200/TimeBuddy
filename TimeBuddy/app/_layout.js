@@ -52,7 +52,6 @@ export default layout = () => {
 
       {/* popups */}
       <Creator />
-
       <DeleteBtn />
     </Context>
   );

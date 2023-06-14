@@ -5,6 +5,7 @@ import {
   Animated,
   PanResponder,
   Vibration,
+  Dimensions,
 } from "react-native";
 import React, { useContext, useEffect, useRef, useState } from "react";
 
@@ -17,14 +18,14 @@ import ToggleBtn from "../routine/ToggleBtn.jsx";
 
 // context
 import { datalayer } from "../../configurations/Context.js";
-import DeleteBtn from "../routine/DeleteBtn.jsx";
 
-const ListItem = ({ data }) => {
+const ListItem = ({ data, ind }) => {
   // state that controls the state of the on off button.
   const [toggleBtn, setToggleBtn] = useState(data.isOn);
 
   const {
     listItem: [isHold, setIsHold],
+    routine: [, setRoutineInfo],
   } = useContext(datalayer);
   // used to 🔽:
   // -- activate the moveable property..
@@ -63,12 +64,15 @@ const ListItem = ({ data }) => {
   // usage 🔽
   // validates if a touch is long enough to be considered a hold or not..
 
+  const item = useRef(); // reference of the main container
+
   const handleTouchBegin = () => {
     // after the 500 milliseconds of holding the item it is activated as a hold..
+    pan.setOffset({ x: 0, y: 0 });
+
     holdTimeOut = setTimeout(() => {
       setIsHold({ id: data._id, state: true }); // setting hold to true
       // resetting the item offset before 500ms
-      pan.setOffset({ x: 0, y: 0 });
       Vibration.vibrate(50); // vibrates for 50ms
     }, 500);
   };
@@ -78,6 +82,32 @@ const ListItem = ({ data }) => {
 
     // since timout will convert it to a valid hold even if it is released at 200ms so, it must be cleared on hold
     clearTimeout(holdTimeOut);
+
+    const { left, top } = pan.getLayout();
+
+    // available are for the list in visible screen is total h - 200 del btn up - ~ 50 topsection height and margin top = 0  , so it is 800-250 i.e 550
+    // and the height of each item is 165 / 2 = 82.5 center so first can travel: 550 - 82.5 = 467.5 at best case
+    // hence, for the first item to be deleted it should get like 467.5 +- 50 kinda offset or top value
+    // and for second one it should be 550 - (165 + 82.5) +- 50 so, here is the formula
+    // since, index starts from 0 if Topoffset > (screenHeigh - 250) - ((index * 165) + 82.5 ) during release.
+    // the location where delete is valid, from btm.
+
+    top.addListener(({ _value }) => (getValue = _value));
+
+    console.log({
+      if:
+        Number.parseInt(JSON.stringify(top)) >
+        Dimensions.get("screen").height - 250 - (ind * 165 + 82.5 + 80),
+      top,
+      calc: Dimensions.get("screen").height - 250 - (ind * 165 + 82.5 + 80),
+    });
+    if (
+      Number.parseInt(JSON.stringify(top)) >
+      Dimensions.get("screen").height - 250 - (ind * 165 + 82.5 + 80)
+    )
+      setRoutineInfo((routines) => {
+        return [...routines.filter((routine) => routine._id !== data._id)];
+      });
 
     // resetting the pan on hold leave
     pan.setOffset({ x: 0, y: 0 });
@@ -96,8 +126,9 @@ const ListItem = ({ data }) => {
             isHold.state
               ? isHold.id == data._id
                 ? {
+                    position: "absolute",
                     transform: [{ translateX: pan.x }, { translateY: pan.y }],
-                    zIndex: 20,
+                    zIndex: 25,
                   }
                 : {
                     opacity: 0.5,
