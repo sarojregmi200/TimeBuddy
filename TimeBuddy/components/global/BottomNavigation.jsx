@@ -21,8 +21,7 @@ const BottomNavigation = () => {
 
   // gets the active route
   const ActivePathname = useSegments()[0] || "/";
-  // use segment returns empty array in homescreen
-  console.log({ ActivePathname });
+  // use segment returns empty array in homescree
 
   // to change the style of the active path
   const getActiveClass = (pathName, consumer) =>

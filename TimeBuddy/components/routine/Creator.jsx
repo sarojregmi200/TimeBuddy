@@ -19,7 +19,7 @@ const Creator = () => {
   // contains popup type and state
   const {
     popup: [popup, setPopup],
-    routine: [, setRoutineInfo],
+    routine: [routineInfo, setRoutineInfo],
   } = useContext(datalayer);
 
   const [creationState, setCreationState] = useState();
@@ -52,7 +52,7 @@ const Creator = () => {
         return [
           ...prevData,
           {
-            _id: creationState?._id,
+            _id: Crypto.randomUUID(),
             name: creationState?.name,
             days: creationState?.data?.repeat,
             isOn: false,
@@ -72,7 +72,7 @@ const Creator = () => {
   // set the initial state according to the active popup mode.
   useEffect(() => {
     setCreationState({
-      _id: Crypto.randomUUID(),
+      _id: "",
       type,
       name: "",
       data:
