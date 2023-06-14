@@ -94,13 +94,6 @@ const ListItem = ({ data, ind }) => {
 
     top.addListener(({ _value }) => (getValue = _value));
 
-    console.log({
-      if:
-        Number.parseInt(JSON.stringify(top)) >
-        Dimensions.get("screen").height - 250 - (ind * 165 + 82.5 + 80),
-      top,
-      calc: Dimensions.get("screen").height - 250 - (ind * 165 + 82.5 + 80),
-    });
     if (
       Number.parseInt(JSON.stringify(top)) >
       Dimensions.get("screen").height - 250 - (ind * 165 + 82.5 + 80)
