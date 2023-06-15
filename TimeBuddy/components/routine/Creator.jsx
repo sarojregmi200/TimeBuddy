@@ -14,7 +14,7 @@ import Button from "../global/Button.jsx";
 
 // external package
 import * as Crypto from "expo-crypto";
-import { useSegments, useSearchParams } from "expo-router";
+import { useSearchParams } from "expo-router";
 
 // icon
 import ArrowBtn from "../../assets/svgs/sideArrow.svg";
@@ -22,6 +22,7 @@ import ArrowBtn from "../../assets/svgs/sideArrow.svg";
 // external modules
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
+import { updateDB } from "../../configurations/appwrite.config.js";
 
 const Creator = () => {
   // contains popup type and state
@@ -38,14 +39,14 @@ const Creator = () => {
   const [creationState, setCreationState] = useState();
   // data model creation state
   // {type: "Routine", data:{
-  //   _id:"routineId",
+  //   r_id:"routineId",
   //   name:"name",
   //   repeat: [0, 0, 0, 0, 0, 0, 0],
   //   tasks:[],
   // }}
 
   // {type: "task", data:{
-  //     _id:"taskid"
+  //     t_id:"taskid"
   //     ,name:"task name",
   //     time: "time in some format"
   //   }}
@@ -64,10 +65,11 @@ const Creator = () => {
     // add the routine
     setRoutineInfo((prevData) => {
       if (type === "Routine") {
+        updateDB([...prevData, { ...creationState }]);
         return [
           ...prevData,
           {
-            _id: Crypto.randomUUID(),
+            r_id: Crypto.randomUUID(),
             name: creationState?.name,
             days: creationState?.data?.repeat,
             isOn: false,
@@ -81,16 +83,15 @@ const Creator = () => {
 
         //  getting the parent routine
         const parentRoutine = prevData.filter(
-          (routine) => routine._id === routine_id
+          (routine) => routine.r_id === routine_id
         )[0];
         parentRoutine.tasks.push({
-          _id: Crypto.randomUUID(),
+          t_id: Crypto.randomUUID(),
           name: creationState?.name,
           time: creationState?.data?.time,
         });
-        console.log(parentRoutine.tasks);
         return [
-          ...prevData.filter((routine) => routine._id !== routine_id),
+          ...prevData.filter((routine) => routine.r_id !== routine_id),
           { ...parentRoutine },
         ];
       }
@@ -104,7 +105,7 @@ const Creator = () => {
 
     // resetting the creation state
     setCreationState({
-      _id: "",
+      r_id: "",
       type,
       name: "",
       data:
@@ -117,7 +118,7 @@ const Creator = () => {
   // set the initial state according to the active popup mode.
   useEffect(() => {
     setCreationState({
-      _id: "",
+      r_id: "",
       type,
       name: "",
       data:
@@ -126,8 +127,6 @@ const Creator = () => {
           : { time: null },
     });
   }, []);
-
-  console.log(creationState);
 
   const handleTimeInput = () => {
     setTimePickerVisibility({

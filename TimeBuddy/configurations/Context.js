@@ -1,7 +1,13 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+import * as Application from "expo-application";
+import { Platform } from "react-native";
 
 // creating the context provider
 export const datalayer = createContext();
+
+// importing the appwrite configurations
+import { DB, DBId, CollectionId } from "./appwrite.config.js";
+import { Query } from "appwrite";
 
 // context data layer wrapper
 const Context = ({ children }) => {
@@ -9,59 +15,19 @@ const Context = ({ children }) => {
   // contains the dummy sample data for now
   const [routineInfo, setRoutineInfo] = useState([
     {
-      _id: "abcxyz123",
+      r_id: "abcxyz123",
       name: "Morning Time routine",
       days: [1, 0, 0, 0, 1, 0, 1],
       isOn: false,
       tasks: [
         {
-          _id: "x234dsf3rsdf2",
+          t_id: "x234dsf3rsdf2",
           name: "Fill the water bottle",
           time: "6:30-7:30",
           isOn: false,
         },
         {
-          _id: "yse34dsf3rsdf2",
-          name: "empty the water bottle",
-          time: "9:30-10:30",
-          isOn: true,
-        },
-      ],
-    },
-    {
-      _id: "dsfj34dfsd",
-      name: "Day Time routine",
-      days: [0, 1, 0, 0, 0, 1, 0],
-      isOn: true,
-      tasks: [
-        {
-          _id: "x234dsf3rsdf2",
-          name: "Fill the water bottle",
-          time: "6:30-7:30",
-          isOn: false,
-        },
-        {
-          _id: "yse34dsf3rsdf2",
-          name: "empty the water bottle",
-          time: "9:30-10:30",
-          isOn: true,
-        },
-      ],
-    },
-    {
-      _id: "df23dsfdf",
-      name: "Evening Time routine",
-      days: [0, 1, 1, 1, 1, 0, 0],
-      isOn: false,
-      tasks: [
-        {
-          _id: "x234dsf3rsdf2",
-          name: "Fill the water bottle",
-          time: "6:30-7:30",
-          isOn: false,
-        },
-        {
-          _id: "yse34dsf3rsdf2",
+          t_id: "yse34dsf3rsdf2",
           name: "empty the water bottle",
           time: "9:30-10:30",
           isOn: true,
@@ -79,6 +45,41 @@ const Context = ({ children }) => {
   // state that controls the validity of the creation
   const [valid, setValid] = useState(false);
 
+  // user
+  const [user, setUser] = useState({ userId: null });
+
+  const getDeviceId = async () => {
+    if (Platform.OS === "android") {
+      return Application.androidId;
+    } else {
+      return null;
+    } // for the time being ios is not supported.
+  };
+
+  // component did mount
+  useEffect(() => {
+    // setting up the user
+    getDeviceId().then((id) => {
+      setUser({ userId: id });
+      console.log(id);
+    });
+
+    // getting the routine info from the database
+    const getData = async () => {
+      const fetchedData = await DB().listDocuments(DBId, CollectionId, [
+        Query.equal("userId", user.userId),
+      ]);
+      return fetchedData;
+    };
+
+    getData()
+      .then((data) => {
+        setRoutineInfo(data.documents || []);
+        console.log(data.documents);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   return (
     <datalayer.Provider
       value={{
@@ -86,6 +87,8 @@ const Context = ({ children }) => {
         listItem: [isHold, setIsHold],
         popup: [popup, setPopup],
         form: [valid, setValid],
+        user: [user, setUser],
+        database: { DB, DBId, CollectionId },
       }}
     >
       {children}

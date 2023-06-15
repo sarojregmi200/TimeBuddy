@@ -75,14 +75,14 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
     pan.setOffset({ x: 0, y: 0 });
 
     holdTimeOut = setTimeout(() => {
-      setIsHold({ id: data._id, state: true }); // setting hold to true
+      setIsHold({ id: data.r_id, state: true }); // setting hold to true
       // resetting the item offset before 500ms
       Vibration.vibrate(50); // vibrates for 50ms
     }, 500);
   };
   const handleTouchEnd = () => {
     if (type === "Routine" && !isHold.state) {
-      Router.push(`Routine/${data._id}`);
+      Router.push(`Routine/${data.r_id}`);
     }
 
     // resetting the state to false to hide the del btn
@@ -106,14 +106,13 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
     ) {
       if (type === "Routine") {
         setRoutineInfo((routines) => {
-          return [...routines.filter((routine) => routine._id !== data._id)];
+          return [...routines.filter((routine) => routine.r_id !== data.r_id)];
         });
       } else {
         setRoutineInfo((routines) => {
-          console.log("One item Is going to be deleted");
           // getting the parent routine
           const parentRoutine = routines.filter(
-            (routine) => routine._id === parentId
+            (routine) => routine.t_id === parentId
           )[0];
 
           // updating the task in the parent routine
@@ -121,16 +120,17 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
             ...parentRoutine,
             ...{
               tasks: [
-                ...parentRoutine.tasks.filter((task) => task._id !== data._id),
+                ...parentRoutine.tasks.filter(
+                  (task) => task.t_id !== data.t_id
+                ),
               ],
             },
           };
 
           const updatedRoutines = [
-            ...routines.filter((routine) => routine._id !== parentId),
+            ...routines.filter((routine) => routine.r_id !== parentId),
             { ...updatedRoutine },
           ];
-          console.log(updatedRoutine);
           // return a new routine array
           return [...updatedRoutines];
         });
@@ -146,12 +146,17 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
         onTouchStart={handleTouchBegin}
         onTouchEnd={handleTouchEnd}
         delayLongPress={500}
-        style={[isHold.state && isHold.id === data._id && { zIndex: 20 }]}
+        style={[
+          isHold.state &&
+            (isHold.id === data?.t_id || isHold.id === data?.r_id) && {
+              zIndex: 20,
+            },
+        ]}
       >
         <Animated.View
           style={
             isHold.state
-              ? isHold.id == data._id
+              ? isHold.id === data?.t_id || isHold.id === data?.r_id
                 ? {
                     position: "absolute",
                     transform: [{ translateX: pan.x }, { translateY: pan.y }],
@@ -178,7 +183,8 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
                 <Days data={data.days} status={toggleBtn} />
               ) : (
                 <Text style={[styles.date, !toggleBtn && styles.inactiveTitle]}>
-                  {data?.time?.first + "-" + data?.time?.second}
+                  {data?.time?.first ||
+                    "7:30" + "-" + (data?.time?.second || "8:30 PM")}
                 </Text>
               )}
             </View>
@@ -186,7 +192,7 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
             {/* toggle btn */}
             <ToggleBtn
               controls={[toggleBtn, setToggleBtn]}
-              routineId={data._id}
+              routineId={data?.r_id || data?.t_id}
             />
           </View>
         </Animated.View>

@@ -18,7 +18,7 @@ const ToggleBtn = ({ controls: [toggleBtn, setToggleBtn], routineId }) => {
 
     setRoutineInfo((routineArr) => {
       return routineArr.map((routine) => {
-        if (routine._id === routineId) return { ...routine, isOn: !toggleBtn };
+        if (routine.r_id === routineId) return { ...routine, isOn: !toggleBtn };
         return routine;
       });
     });

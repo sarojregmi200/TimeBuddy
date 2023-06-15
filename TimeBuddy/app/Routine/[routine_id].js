@@ -34,7 +34,7 @@ const IndividualRoutine = () => {
     if (routineInfo && routineInfo?.length > 0)
       return setCurrentRoutine(() => {
         // filtering the routine and returning the first item since filter returns an array
-        return routineInfo?.filter((e) => e._id === routine_id)[0];
+        return routineInfo?.filter((e) => e.r_id === routine_id)[0];
       });
   }, []);
 
@@ -44,11 +44,10 @@ const IndividualRoutine = () => {
     if (routineInfo && routineInfo?.length > 0)
       return setCurrentRoutine(() => {
         // filtering the routine and returning the first item since filter returns an array
-        return routineInfo?.filter((e) => e._id === routine_id)[0];
+        return routineInfo?.filter((e) => e.r_id === routine_id)[0];
       });
   }, [routineInfo]);
 
-  // console.log(currentRoutine);
   const handleAddBtnPress = () => {
     setPopup({
       type: "Task",

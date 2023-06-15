@@ -19,6 +19,8 @@ const Routine = ({}) => {
     popup: [, setPopup],
   } = useContext(datalayer);
 
+  console.log(routineInfo);
+
   const handleAddRoutine = () => {
     setPopup({ type: "Routine", state: true });
   };
@@ -36,9 +38,15 @@ const Routine = ({}) => {
         </View>
         <View style={[styles.routines]}>
           {/* list items */}
-          {routineInfo.map((routine, index) => (
-            <ListItem data={routine} type={"Routine"} key={index} ind={index} />
-          ))}
+          {routineInfo?.length > 0 &&
+            routineInfo.map((routine, index) => (
+              <ListItem
+                data={routine}
+                type={"Routine"}
+                key={index}
+                ind={index}
+              />
+            ))}
         </View>
       </View>
     </ScrollView>
