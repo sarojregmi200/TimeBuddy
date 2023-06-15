@@ -21,6 +21,7 @@ import ArrowBtn from "../../assets/svgs/sideArrow.svg";
 
 // external modules
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from "moment";
 
 const Creator = () => {
   // contains popup type and state
@@ -82,13 +83,12 @@ const Creator = () => {
         const parentRoutine = prevData.filter(
           (routine) => routine._id === routine_id
         )[0];
-
-        console.log(parentRoutine);
         parentRoutine.tasks.push({
           _id: Crypto.randomUUID(),
           name: creationState?.name,
           time: creationState?.data?.time,
         });
+        console.log(parentRoutine.tasks);
         return [
           ...prevData.filter((routine) => routine._id !== routine_id),
           { ...parentRoutine },
@@ -126,6 +126,8 @@ const Creator = () => {
           : { time: null },
     });
   }, []);
+
+  console.log(creationState);
 
   const handleTimeInput = () => {
     setTimePickerVisibility({
@@ -191,7 +193,12 @@ const Creator = () => {
                 >
                   <View style={styles.timeTxtContainer}>
                     <Text style={styles.label}>Time</Text>
-                    <Text style={styles.selectedTime}>6:30 - 7:30</Text>
+                    <Text style={styles.selectedTime}>
+                      {creationState?.data?.time?.first ||
+                        "7:30" +
+                          " - " +
+                          (creationState?.data?.time?.second || "8:30 pm")}
+                    </Text>
                   </View>
                   {/* arrow btn to indicate it is a time picker */}
                   <ArrowBtn />
@@ -220,9 +227,18 @@ const Creator = () => {
             onConfirm={(time) => {
               setCreationState((previousState) => ({
                 ...previousState,
-                time: {
-                  ...previousState?.time,
-                  ...{ first: time },
+
+                data: {
+                  time: {
+                    // extract the time hour:minutes am/pm in this format using moment js
+                    first:
+                      new Date(time).getHours() +
+                      ":" +
+                      new Date(time).getMinutes() +
+                      " " +
+                      moment(time).format("A"),
+                    second: previousState?.data?.time?.second || "",
+                  },
                 },
               }));
 
@@ -233,7 +249,7 @@ const Creator = () => {
             }}
             onCancel={() =>
               setTimePickerVisibility((previousState) => ({
-                ...previousState,
+                second: previousState?.second || false,
                 first: false,
               }))
             }
@@ -245,9 +261,16 @@ const Creator = () => {
             onConfirm={(time) => {
               setCreationState((previousState) => ({
                 ...previousState,
-                time: {
-                  ...previousState?.time,
-                  ...{ second: time },
+                data: {
+                  time: {
+                    first: previousState?.data?.time?.first || "",
+                    second:
+                      new Date(time).getHours() +
+                      ":" +
+                      new Date(time).getMinutes() +
+                      " " +
+                      moment(time).format("A"),
+                  },
                 },
               }));
 

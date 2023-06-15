@@ -178,7 +178,7 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
                 <Days data={data.days} status={toggleBtn} />
               ) : (
                 <Text style={[styles.date, !toggleBtn && styles.inactiveTitle]}>
-                  {data.time}
+                  {data?.time?.first + "-" + data?.time?.second}
                 </Text>
               )}
             </View>
