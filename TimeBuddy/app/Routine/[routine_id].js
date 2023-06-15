@@ -58,7 +58,7 @@ const IndividualRoutine = () => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.topContainer}>
-        <Text style={styles.title}>{currentRoutine.name}</Text>
+        <Text style={styles.title}>{currentRoutine?.name}</Text>
         <Pressable style={styles.addBtn} onPress={handleAddBtnPress}>
           <AddBtn />
         </Pressable>

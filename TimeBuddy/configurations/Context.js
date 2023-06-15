@@ -1,12 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
-import * as Application from "expo-application";
-import { Platform } from "react-native";
 
 // creating the context provider
 export const datalayer = createContext();
 
 // importing the appwrite configurations
-import { DB, DBId, CollectionId } from "./appwrite.config.js";
+import { DB, DBId, CollectionId, getDeviceId } from "./appwrite.config.js";
 import { Query } from "appwrite";
 
 // context data layer wrapper
@@ -48,26 +46,20 @@ const Context = ({ children }) => {
   // user
   const [user, setUser] = useState({ userId: null });
 
-  const getDeviceId = async () => {
-    if (Platform.OS === "android") {
-      return Application.androidId;
-    } else {
-      return null;
-    } // for the time being ios is not supported.
-  };
-
   // component did mount
   useEffect(() => {
     // setting up the user
-    getDeviceId().then((id) => {
-      setUser({ userId: id });
-      console.log(id);
-    });
+    getDeviceId()
+      .then((id) => {
+        setUser({ userId: id });
+        console.log(id);
+      })
+      .catch((e) => console.log(e));
 
     // getting the routine info from the database
     const getData = async () => {
       const fetchedData = await DB().listDocuments(DBId, CollectionId, [
-        Query.equal("userId", user.userId),
+        Query.equal("userId", "d517861d49f69a95"),
       ]);
       return fetchedData;
     };
