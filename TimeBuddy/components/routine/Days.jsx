@@ -25,7 +25,7 @@ const Days = ({ data, status, creation, setCreation }) => {
       : consumer === "txt" && !status && styles.offInactiveDayText;
 
   const handleClick = (index) => {
-    const newArrayActive = data.map((item, ind) =>
+    const newArrayActive = data?.map((item, ind) =>
       ind === index ? (!item && 1) || 0 : item
     );
     setCreation((previousState) => {
@@ -39,7 +39,7 @@ const Days = ({ data, status, creation, setCreation }) => {
   };
   return (
     <View style={styles.daysContainer}>
-      {days.map((day, index) => {
+      {days?.map((day, index) => {
         return (
           <Pressable
             style={[

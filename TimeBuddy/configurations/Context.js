@@ -51,26 +51,52 @@ const Context = ({ children }) => {
     // setting up the user
     getDeviceId()
       .then((id) => {
-        setUser({ userId: id });
-        console.log(id);
+        setUser({ userId: String(id) });
+
+        // getting the routine info from the database
+        getData(id)
+          .then((data) => {
+            setRoutineInfo(data.documents || []);
+          })
+          .catch((e) => console.log(e));
       })
       .catch((e) => console.log(e));
 
     // getting the routine info from the database
-    const getData = async () => {
+    const getData = async (id) => {
       const fetchedData = await DB().listDocuments(DBId, CollectionId, [
-        Query.equal("userId", "d517861d49f69a95"),
+        Query.equal("userId", String(id)),
       ]);
+
       return fetchedData;
     };
+  }, []);
 
-    getData()
-      .then((data) => {
-        setRoutineInfo(data.documents || []);
-        console.log(data.documents);
+  // after data being updated to db
+  useEffect(() => {
+    // setting up the user
+    getDeviceId()
+      .then((id) => {
+        setUser({ userId: String(id) });
+
+        // getting the routine info from the database
+        getData(id)
+          .then((data) => {
+            setRoutineInfo(data.documents || []);
+          })
+          .catch((e) => console.log(e));
       })
       .catch((e) => console.log(e));
-  }, []);
+
+    // getting the routine info from the database
+    const getData = async (id) => {
+      const fetchedData = await DB().listDocuments(DBId, CollectionId, [
+        Query.equal("userId", String(id)),
+      ]);
+
+      return fetchedData;
+    };
+  }, [routineInfo]);
 
   return (
     <datalayer.Provider

@@ -22,13 +22,14 @@ import ArrowBtn from "../../assets/svgs/sideArrow.svg";
 // external modules
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
-import { updateDB } from "../../configurations/appwrite.config.js";
+import { addTodb, updateDB } from "../../configurations/appwrite.config.js";
 
 const Creator = () => {
   // contains popup type and state
   const {
     popup: [popup, setPopup],
     routine: [, setRoutineInfo],
+    user: [user],
   } = useContext(datalayer);
 
   const [timePickerVisibility, setTimePickerVisibility] = useState({
@@ -65,11 +66,18 @@ const Creator = () => {
     // add the routine
     setRoutineInfo((prevData) => {
       if (type === "Routine") {
-        updateDB([...prevData, { ...creationState }]);
+        addTodb({
+          userId: user?.userId,
+          r_id: String(Crypto.randomUUID()),
+          name: creationState?.name,
+          days: creationState?.data?.repeat,
+          isOn: false,
+          // tasks: creationState?.data?.tasks,
+        });
         return [
           ...prevData,
           {
-            r_id: Crypto.randomUUID(),
+            r_id: String(Crypto.randomUUID()),
             name: creationState?.name,
             days: creationState?.data?.repeat,
             isOn: false,

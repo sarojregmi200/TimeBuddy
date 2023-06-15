@@ -19,8 +19,6 @@ const Routine = ({}) => {
     popup: [, setPopup],
   } = useContext(datalayer);
 
-  console.log(routineInfo);
-
   const handleAddRoutine = () => {
     setPopup({ type: "Routine", state: true });
   };
