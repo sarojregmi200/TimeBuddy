@@ -98,6 +98,10 @@ const Creator = () => {
           name: creationState?.name,
           time: creationState?.data?.time,
         });
+
+        // updating the database
+        updateDB(parentRoutine.$id, parentRoutine);
+
         return [
           ...prevData.filter((routine) => routine.r_id !== routine_id),
           { ...parentRoutine },
