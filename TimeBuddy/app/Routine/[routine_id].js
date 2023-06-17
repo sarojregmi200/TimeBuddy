@@ -29,6 +29,10 @@ const IndividualRoutine = () => {
   // holds the current routine that matches with the id in the url
   const [currentRoutine, setCurrentRoutine] = useState({});
 
+  // gets updated after the tasks are parsed or anyother sideffects
+  const [tasks, setTasks] = useState(() => {
+    return currentRoutine ? JSON.parse(currentRoutine.tasks) : [];
+  });
   // component did mount
   useEffect(() => {
     if (routineInfo && routineInfo?.length > 0)
@@ -40,6 +44,7 @@ const IndividualRoutine = () => {
 
   // side effect of the routine info
   // to help delete the task
+  // since the routine info consists the tasks and it is done to insure that whenever the task is deleted the routine info is also deleted. so it means when the routine info changes then the tasks must be rerendered
   useEffect(() => {
     if (routineInfo && routineInfo?.length > 0)
       return setCurrentRoutine(() => {
@@ -65,7 +70,7 @@ const IndividualRoutine = () => {
       </View>
       <ScrollView>
         <View style={styles.tasksContainer}>
-          {currentRoutine?.tasks?.map((task, index) => {
+          {tasks.map((task, index) => {
             return (
               <ListItem
                 type={"Task"}

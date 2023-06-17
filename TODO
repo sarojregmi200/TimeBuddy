@@ -36,6 +36,7 @@ Universal:
   ✔ solve the svg problem with strokes @done(23-06-09 14:01)
   ✔ add the + icon @done(23-06-09 15:25)
   ✔ add the delete icon @started(23-06-09 17:02) @done(23-06-11 20:30) @lasted(2d3h28m50s)
+  ☐ tasks in the cloud @started(23-06-17 15:22)
   ☐ auth.
   ☐ universal state server and user level.
   ☐ push notification

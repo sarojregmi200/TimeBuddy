@@ -93,11 +93,19 @@ const Creator = () => {
         const parentRoutine = prevData.filter(
           (routine) => routine.r_id === routine_id
         )[0];
-        parentRoutine.tasks.push({
+        const newTask = {
           t_id: Crypto.randomUUID(),
           name: creationState?.name,
           time: creationState?.data?.time,
-        });
+        };
+
+        // getting the previous task in a array format.
+        let previousTasks = JSON.parse(parentRoutine.tasks);
+        if (previousTasks?.length > 0) previousTasks.push(newTask);
+        else previousTasks = [newTask]; // if there is no previous task then converting the current to a array.
+
+        // converting it back to string since the data of tasks is expected in string in the cloud
+        parentRoutine.tasks = JSON.stringify(previousTasks);
 
         // updating the database
         updateDB(parentRoutine.$id, parentRoutine);
