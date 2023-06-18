@@ -22,13 +22,13 @@ import ArrowBtn from "../../assets/svgs/sideArrow.svg";
 // external modules
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
-import { addTodb, updateDB } from "../../configurations/appwrite.config.js";
+import { addTodb, updateDb } from "../../configurations/appwrite.config.js";
 
 const Creator = () => {
   // contains popup type and state
   const {
     popup: [popup, setPopup],
-    routine: [, setRoutineInfo],
+    routine: [routineInfo, setRoutineInfo],
     user: [user],
   } = useContext(datalayer);
 
@@ -52,12 +52,10 @@ const Creator = () => {
   //     time: "time in some format"
   //   }}
 
-  // type indicates the type of creator
-  // either Routine or Task.
-  const type = popup.type;
-
   // checks the validity of the form i.e the name is not empty for now
   const [valid, setValid] = useState(false);
+
+  const { routine_id } = useSearchParams();
 
   // handles the creation of the state and updating the existing data layer state
   const handleCreation = () => {
@@ -65,7 +63,7 @@ const Creator = () => {
 
     // add the routine
     setRoutineInfo((prevData) => {
-      if (type === "Routine") {
+      if (popup.type === "Routine") {
         addTodb({
           userId: user?.userId,
           r_id: String(Crypto.randomUUID()),
@@ -87,7 +85,6 @@ const Creator = () => {
       } else {
         // creating a task
         // getting the parent routine
-        const { routine_id } = useSearchParams();
 
         //  getting the parent routine
         const parentRoutine = prevData.filter(
@@ -103,6 +100,8 @@ const Creator = () => {
         let previousTasks = parentRoutine?.tasks
           ? JSON.parse(parentRoutine.tasks)
           : [];
+
+        // console.log(previousTasks);
         if (previousTasks?.length > 0) previousTasks.push(newTask);
         else previousTasks = [newTask]; // if there is no previous task then converting the current to a array.
 
@@ -110,11 +109,11 @@ const Creator = () => {
         parentRoutine.tasks = JSON.stringify(previousTasks);
 
         // updating the database
-        updateDB(parentRoutine.$id, parentRoutine);
+        updateDb(parentRoutine.$id, parentRoutine);
 
         return [
           ...prevData.filter((routine) => routine.r_id !== routine_id),
-          { ...parentRoutine },
+          { ...parentRoutine, ...{ task: previousTasks } },
         ];
       }
     });
@@ -128,27 +127,37 @@ const Creator = () => {
     // resetting the creation state
     setCreationState({
       r_id: "",
-      type,
+      type: popup?.type,
       name: "",
       data:
-        type === "Routine"
+        popup?.type === "Routine"
           ? { tasks: [], repeat: [0, 0, 0, 0, 0, 0, 0] }
-          : { time: { start: "", end: "" } },
+          : { time: { start: "7:30", end: "8:30" } },
     });
   };
+
+  console.log("______________________________________________");
+  console.log({ type: popup?.type });
+  console.log({
+    rinfo: routineInfo.filter((routine) => routine.r_id === routine_id)[0]
+      ?.tasks,
+  });
+  console.log({
+    creationState,
+  });
 
   // set the initial state according to the active popup mode.
   useEffect(() => {
     setCreationState({
       r_id: "",
-      type,
+      type: popup?.type,
       name: "",
       data:
-        type === "Routine"
+        popup?.type === "Routine"
           ? { tasks: [], repeat: [0, 0, 0, 0, 0, 0, 0] }
-          : { time: null },
+          : { time: { start: "7:30", end: "8:30" } },
     });
-  }, []);
+  }, [popup?.type]);
 
   const handleTimeInput = () => {
     setTimePickerVisibility({
@@ -163,7 +172,7 @@ const Creator = () => {
           <Disposer />
           <View
             style={[
-              type == "Routine"
+              popup?.type == "Routine"
                 ? styles.routineContainer
                 : styles.taskContainer,
               styles.mainContainer,

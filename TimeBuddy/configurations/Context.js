@@ -24,57 +24,36 @@ const Context = ({ children }) => {
   // user
   const [user, setUser] = useState({ userId: null });
 
+  // after data being updated to db
+  const fetchDbData = () => {
+    // setting up the user
+    getDeviceId()
+      .then((id) => {
+        setUser({ userId: String(id) });
+
+        // getting the routine info from the database
+        getData(id)
+          .then((data) => {
+            setRoutineInfo(data.documents || []);
+          })
+          .catch((e) => console.log(e));
+      })
+      .catch((e) => console.log(e));
+
+    // getting the routine info from the database
+    const getData = async (id) => {
+      const fetchedData = await DB().listDocuments(DBId, CollectionId, [
+        Query.equal("userId", String(id)),
+      ]);
+
+      return fetchedData;
+    };
+  };
+
   // component did mount
   useEffect(() => {
-    // setting up the user
-    getDeviceId()
-      .then((id) => {
-        setUser({ userId: String(id) });
-
-        // getting the routine info from the database
-        getData(id)
-          .then((data) => {
-            setRoutineInfo(data.documents || []);
-          })
-          .catch((e) => console.log(e));
-      })
-      .catch((e) => console.log(e));
-
-    // getting the routine info from the database
-    const getData = async (id) => {
-      const fetchedData = await DB().listDocuments(DBId, CollectionId, [
-        Query.equal("userId", String(id)),
-      ]);
-
-      return fetchedData;
-    };
+    fetchDbData();
   }, []);
-
-  // after data being updated to db
-  useEffect(() => {
-    // setting up the user
-    getDeviceId()
-      .then((id) => {
-        setUser({ userId: String(id) });
-
-        // getting the routine info from the database
-        getData(id)
-          .then((data) => {
-            setRoutineInfo(data.documents || []);
-          })
-          .catch((e) => console.log(e));
-      })
-      .catch((e) => console.log(e));
-
-    // getting the routine info from the database
-    const getData = async (id) => {
-      const fetchedData = await DB().listDocuments(DBId, CollectionId, [
-        Query.equal("userId", String(id)),
-      ]);
-
-      return fetchedData;
-    };
-  }, [routineInfo]);
 
   return (
     <datalayer.Provider
