@@ -18,7 +18,6 @@ const Context = ({ children }) => {
 
   // state to control the popup models
   const [popup, setPopup] = useState({ type: "Routine", state: false });
-
   // state that controls the validity of the creation
   const [valid, setValid] = useState(false);
 

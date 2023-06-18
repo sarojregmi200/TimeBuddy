@@ -100,7 +100,9 @@ const Creator = () => {
         };
 
         // getting the previous task in a array format.
-        let previousTasks = JSON.parse(parentRoutine.tasks);
+        let previousTasks = parentRoutine?.tasks
+          ? JSON.parse(parentRoutine.tasks)
+          : [];
         if (previousTasks?.length > 0) previousTasks.push(newTask);
         else previousTasks = [newTask]; // if there is no previous task then converting the current to a array.
 

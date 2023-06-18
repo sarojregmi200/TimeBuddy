@@ -30,9 +30,7 @@ const IndividualRoutine = () => {
   const [currentRoutine, setCurrentRoutine] = useState({});
 
   // gets updated after the tasks are parsed or anyother sideffects
-  const [tasks, setTasks] = useState(() => {
-    return currentRoutine ? JSON.parse(currentRoutine.tasks) : [];
-  });
+  const [tasks, setTasks] = useState([]);
   // component did mount
   useEffect(() => {
     if (routineInfo && routineInfo?.length > 0)
@@ -47,10 +45,18 @@ const IndividualRoutine = () => {
   // since the routine info consists the tasks and it is done to insure that whenever the task is deleted the routine info is also deleted. so it means when the routine info changes then the tasks must be rerendered
   useEffect(() => {
     if (routineInfo && routineInfo?.length > 0)
-      return setCurrentRoutine(() => {
-        // filtering the routine and returning the first item since filter returns an array
-        return routineInfo?.filter((e) => e.r_id === routine_id)[0];
-      });
+      // setting the tasks of the routine
+      setTasks(() =>
+        routineInfo?.filter((e) => e.r_id === routine_id)[0]?.tasks
+          ? JSON.parse(
+              routineInfo?.filter((e) => e.r_id === routine_id)[0].tasks
+            )
+          : []
+      );
+    return setCurrentRoutine(() => {
+      // filtering the routine and returning the first item since filter returns an array
+      return routineInfo?.filter((e) => e.r_id === routine_id)[0];
+    });
   }, [routineInfo]);
 
   const handleAddBtnPress = () => {
