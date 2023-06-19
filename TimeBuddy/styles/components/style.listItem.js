@@ -11,9 +11,10 @@ export default StyleSheet.create({
     paddingHorizontal: 25,
     backgroundColor: "white",
     zIndex: 10,
+    justifyContent: "space-between",
   },
   leftSection: {
-    flex: 1,
+    // flex: 1,
   },
   title: {
     color: "#545454",

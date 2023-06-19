@@ -13,7 +13,7 @@ const ToggleBtn = ({ controls: [toggleBtn, setToggleBtn], routineId }) => {
     routine: [, setRoutineInfo],
   } = useContext(datalayer);
 
-  const handleToggle = () => {
+  const handleToggle = (e) => {
     setToggleBtn(!toggleBtn);
 
     setRoutineInfo((routineArr) => {

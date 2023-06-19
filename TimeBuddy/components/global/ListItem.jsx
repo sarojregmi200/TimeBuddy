@@ -131,12 +131,8 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
       });
     }
   };
-  const handleTouchEnd = () => {
-    // if it is not a hold it is a click and then if it is a click then routing to that routine, to show it's tasks
-    if (type === "Routine" && !isHold.state) {
-      Router.push(`Routine/${data.r_id}`);
-    }
 
+  const handleTouchEnd = () => {
     // resetting the state to false to hide the del btn
     setIsHold({ id: "none", state: false });
 
@@ -161,39 +157,45 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
     pan.setOffset({ x: 0, y: 0 });
   };
 
+  const goToRoutine = () => {
+    // if it is not a hold it is a click and then if it is a click then routing to that routine, to show it's tasks
+    if (type === "Routine" && !isHold.state) {
+      Router.push(`Routine/${data.r_id}`);
+    }
+  };
   return (
-    <>
-      <Pressable
-        onTouchStart={handleTouchBegin}
-        onTouchEnd={handleTouchEnd}
-        delayLongPress={500}
-        style={[
-          isHold.state &&
-            (isHold.id === data?.t_id || isHold.id === data?.r_id) && {
-              zIndex: 20,
-            },
-        ]}
-      >
-        <Animated.View
-          style={
-            isHold.state
-              ? isHold.id === data?.t_id || isHold.id === data?.r_id
-                ? {
-                    position: "absolute",
-                    transform: [{ translateX: pan.x }, { translateY: pan.y }],
-                    zIndex: 25,
-                  }
-                : {
-                    opacity: 0.5,
-                  }
-              : {
-                  opacity: 1,
+    <Pressable
+      onTouchStart={handleTouchBegin}
+      onTouchEnd={handleTouchEnd}
+      delayLongPress={500}
+      style={[
+        isHold.state &&
+          (isHold.id === data?.t_id || isHold.id === data?.r_id) && {
+            zIndex: 20,
+          },
+      ]}
+    >
+      <Animated.View
+        style={
+          isHold.state
+            ? isHold.id === data?.t_id || isHold.id === data?.r_id
+              ? {
+                  position: "absolute",
+                  transform: [{ translateX: pan.x }, { translateY: pan.y }],
+                  zIndex: 25,
                 }
-          }
-          ref={animatedViewRef}
-          {...panResponder.panHandlers}
-        >
-          <View style={[styles.itemContainer]}>
+              : {
+                  opacity: 0.5,
+                }
+            : {
+                opacity: 1,
+              }
+        }
+        ref={animatedViewRef}
+        {...panResponder.panHandlers}
+      >
+        <View style={[styles.itemContainer]}>
+          <Pressable onPress={goToRoutine}>
             <View style={styles.leftSection}>
               {/* title */}
               <Text style={[styles.title, !toggleBtn && styles.inactiveTitle]}>
@@ -209,16 +211,15 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
                 </Text>
               )}
             </View>
-
-            {/* toggle btn */}
-            <ToggleBtn
-              controls={[toggleBtn, setToggleBtn]}
-              routineId={data?.r_id || data?.t_id}
-            />
-          </View>
-        </Animated.View>
-      </Pressable>
-    </>
+          </Pressable>
+          {/* toggle btn */}
+          <ToggleBtn
+            controls={[toggleBtn, setToggleBtn]}
+            routineId={data?.r_id || data?.t_id}
+          />
+        </View>
+      </Animated.View>
+    </Pressable>
   );
 };
 
