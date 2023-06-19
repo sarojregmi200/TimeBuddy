@@ -99,30 +99,40 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
       setRoutineInfo((routines) => {
         // getting the parent routine
         const parentRoutine = routines.filter(
-          (routine) => routine.t_id === parentId
+          (routine) => routine.r_id === parentId
         )[0];
+        if (!parentRoutine) return routines;
 
+        // parsing the tasks into array to perform operations
+        const tasksArray = JSON.parse(parentRoutine.tasks);
         // updating the task in the parent routine
         // updated routine is the parent routine here
         const updatedRoutine = {
           ...parentRoutine,
           ...{
-            tasks: [
-              ...parentRoutine.tasks.filter((task) => task.t_id !== data.t_id),
-            ],
+            // converting the tasks again into string to store in db
+            tasks: JSON.stringify([
+              ...tasksArray.filter((task) => task.t_id !== data.t_id),
+            ]),
           },
         };
+
+        // update the task in the database
+        updateDb(updatedRoutine?.$id, updatedRoutine);
+        // updatedroutine is the current routine i.e the routine that the tasks belong to and updates refers to their changed state. i.e deleted so, updateRoutine?.$id refers to the deleted task's parent docs id.
 
         const updatedRoutines = [
           ...routines.filter((routine) => routine.r_id !== parentId),
           { ...updatedRoutine },
         ];
+
         // return a new routine array
         return [...updatedRoutines];
       });
     }
   };
   const handleTouchEnd = () => {
+    // if it is not a hold it is a click and then if it is a click then routing to that routine, to show it's tasks
     if (type === "Routine" && !isHold.state) {
       Router.push(`Routine/${data.r_id}`);
     }

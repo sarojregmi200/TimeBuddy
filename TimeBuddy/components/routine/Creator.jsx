@@ -101,7 +101,6 @@ const Creator = () => {
           ? JSON.parse(parentRoutine.tasks)
           : [];
 
-        // console.log(previousTasks);
         if (previousTasks?.length > 0) previousTasks.push(newTask);
         else previousTasks = [newTask]; // if there is no previous task then converting the current to a array.
 
@@ -135,16 +134,6 @@ const Creator = () => {
           : { time: { start: "7:30", end: "8:30" } },
     });
   };
-
-  console.log("______________________________________________");
-  console.log({ type: popup?.type });
-  console.log({
-    rinfo: routineInfo.filter((routine) => routine.r_id === routine_id)[0]
-      ?.tasks,
-  });
-  console.log({
-    creationState,
-  });
 
   // set the initial state according to the active popup mode.
   useEffect(() => {
