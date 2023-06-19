@@ -50,7 +50,7 @@ Bugs:
   ✔ toggle btn not working in the new routine @done(23-06-13 22:44)
   ✔ nav bar z index and container issue @done(23-06-13 13:53)
   ☐ the delete algorithm is buggy
-  ☐ The time picker in task adder is not working properly
+  ✔ The time picker in task adder is not working properly @started(23-06-19 18:42) @done(23-06-19 19:31) @lasted(49m12s)
   
 
 Next version Features:

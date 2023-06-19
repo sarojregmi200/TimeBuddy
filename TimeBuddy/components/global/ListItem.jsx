@@ -164,6 +164,10 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
     }
   };
 
+  console.log({
+    Time: data?.time,
+  });
+
   return (
     <Pressable
       onTouchStart={handleTouchBegin}
@@ -207,8 +211,9 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
                 <Days data={data.days} status={toggleBtn} />
               ) : (
                 <Text style={[styles.date, !toggleBtn && styles.inactiveTitle]}>
-                  {data?.time?.first ||
-                    "7:30" + "-" + (data?.time?.second || "8:30 PM")}
+                  {(data?.time?.first || "7:30") +
+                    "-" +
+                    (data?.time?.second || "8:30 PM")}
                 </Text>
               )}
             </View>

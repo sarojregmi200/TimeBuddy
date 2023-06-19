@@ -214,10 +214,9 @@ const Creator = () => {
                   <View style={styles.timeTxtContainer}>
                     <Text style={styles.label}>Time</Text>
                     <Text style={styles.selectedTime}>
-                      {creationState?.data?.time?.first ||
-                        "7:30" +
-                          " - " +
-                          (creationState?.data?.time?.second || "8:30 pm")}
+                      {(creationState?.data?.time?.first || "7:30") +
+                        " - " +
+                        (creationState?.data?.time?.second || "8:30 pm")}
                     </Text>
                   </View>
                   {/* arrow btn to indicate it is a time picker */}
