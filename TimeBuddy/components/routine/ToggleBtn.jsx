@@ -9,18 +9,25 @@ import { datalayer } from "../../configurations/Context.js";
 // to update the database
 import { updateDb } from "../../configurations/appwrite.config.js";
 
-const ToggleBtn = ({ controls: [toggleBtn, setToggleBtn], routineId }) => {
+const ToggleBtn = ({
+  controls: [toggleBtn, setToggleBtn],
+  routineId,
+  type,
+  taskId = false,
+}) => {
   // function to change routine info data
   const {
-    routine: [routineInfo, setRoutineInfo],
+    routine: [, setRoutineInfo],
   } = useContext(datalayer);
 
   const handleToggle = () => {
     setToggleBtn(!toggleBtn);
     setRoutineInfo((routineArr) => {
       return routineArr.map((routine) => {
-        // if the given id is a routine id
-        if (routine.r_id === routineId) {
+        // if the given id and the routine id doesnot match it is not a valid entry so the inital state is returned
+        if (routine.r_id !== routineId) return routine;
+
+        if (type === "Routine") {
           // changing the toggle btn
           const updatedRoutine = {
             ...routine,
@@ -30,9 +37,25 @@ const ToggleBtn = ({ controls: [toggleBtn, setToggleBtn], routineId }) => {
           updateDb(routine?.$id, updatedRoutine);
           return { ...routine, isOn: !toggleBtn };
         } else {
-          // if not it is a task id
+          // it means it is a task that is being updated
 
-          return routine;
+          // parsing the tasks into a array
+          const tasksArray = JSON.parse(routine?.tasks);
+          // // updating the task
+          tasksArray.map((task) => {
+            if (task.t_id === taskId) {
+              task.isOn = !toggleBtn;
+              console.log("matched " + task.isOn);
+            }
+            return task;
+          });
+          const updatedRoutine = {
+            ...routine,
+            tasks: JSON.stringify(tasksArray),
+          };
+          console.log({ updatedRoutine: tasksArray });
+
+          return { ...updatedRoutine };
         }
       });
     });

@@ -36,6 +36,7 @@ const IndividualRoutine = () => {
     if (routineInfo && routineInfo?.length > 0)
       return setCurrentRoutine(() => {
         // filtering the routine and returning the first item since filter returns an array
+        // current routine parent routine to be specific
         return routineInfo?.filter((e) => e.r_id === routine_id)[0];
       });
   }, []);

@@ -94,6 +94,7 @@ const Creator = () => {
           t_id: Crypto.randomUUID(),
           name: creationState?.name,
           time: creationState?.data?.time,
+          isOn: false,
         };
 
         // getting the previous task in a array format.

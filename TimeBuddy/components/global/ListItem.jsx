@@ -163,6 +163,7 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
       Router.push(`Routine/${data.r_id}`);
     }
   };
+
   return (
     <Pressable
       onTouchStart={handleTouchBegin}
@@ -215,7 +216,9 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
           {/* toggle btn */}
           <ToggleBtn
             controls={[toggleBtn, setToggleBtn]}
-            routineId={data?.r_id || data?.t_id}
+            routineId={data?.r_id || parentId}
+            type={type}
+            taskId={data?.t_id}
           />
         </View>
       </Animated.View>
