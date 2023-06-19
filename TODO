@@ -39,6 +39,7 @@ Universal:
   ✔ tasks in the cloud @started(23-06-17 15:22) @done(23-06-18 14:05) @lasted(22h43m18s)
   ✔ fix the tasks in the appwrite @done(23-06-18 10:02)
   ✔ fix the add task function @done(23-06-18 14:05)
+  ☐ fix updates in the tasks and routines @started(23-06-18 17:41)
   ☐ auth.
   ☐ universal state server and user level.
   ☐ push notification

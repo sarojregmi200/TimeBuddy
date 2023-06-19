@@ -21,6 +21,10 @@ import ToggleBtn from "../routine/ToggleBtn.jsx";
 
 // context
 import { datalayer } from "../../configurations/Context.js";
+import {
+  deleteRoutine,
+  updateDb,
+} from "../../configurations/appwrite.config.js";
 
 const ListItem = ({ data, ind, type, parentId = false }) => {
   // state that controls the state of the on off button.
@@ -80,6 +84,44 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
       Vibration.vibrate(50); // vibrates for 50ms
     }, 500);
   };
+
+  // deletes the item on drag
+  const deleteItem = () => {
+    if (type === "Routine") {
+      setRoutineInfo((routines) => {
+        // removing the routine from the database
+        deleteRoutine(
+          routines.filter((routine) => routine.r_id === data.r_id)[0]?.$id
+        );
+        return [...routines.filter((routine) => routine.r_id !== data.r_id)];
+      });
+    } else {
+      setRoutineInfo((routines) => {
+        // getting the parent routine
+        const parentRoutine = routines.filter(
+          (routine) => routine.t_id === parentId
+        )[0];
+
+        // updating the task in the parent routine
+        // updated routine is the parent routine here
+        const updatedRoutine = {
+          ...parentRoutine,
+          ...{
+            tasks: [
+              ...parentRoutine.tasks.filter((task) => task.t_id !== data.t_id),
+            ],
+          },
+        };
+
+        const updatedRoutines = [
+          ...routines.filter((routine) => routine.r_id !== parentId),
+          { ...updatedRoutine },
+        ];
+        // return a new routine array
+        return [...updatedRoutines];
+      });
+    }
+  };
   const handleTouchEnd = () => {
     if (type === "Routine" && !isHold.state) {
       Router.push(`Routine/${data.r_id}`);
@@ -103,39 +145,8 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
     if (
       Number.parseInt(JSON.stringify(top)) >
       Dimensions.get("screen").height - 250 - (ind * 165 + 82.5 + 80)
-    ) {
-      if (type === "Routine") {
-        setRoutineInfo((routines) => {
-          return [...routines.filter((routine) => routine.r_id !== data.r_id)];
-        });
-      } else {
-        setRoutineInfo((routines) => {
-          // getting the parent routine
-          const parentRoutine = routines.filter(
-            (routine) => routine.t_id === parentId
-          )[0];
-
-          // updating the task in the parent routine
-          const updatedRoutine = {
-            ...parentRoutine,
-            ...{
-              tasks: [
-                ...parentRoutine.tasks.filter(
-                  (task) => task.t_id !== data.t_id
-                ),
-              ],
-            },
-          };
-
-          const updatedRoutines = [
-            ...routines.filter((routine) => routine.r_id !== parentId),
-            { ...updatedRoutine },
-          ];
-          // return a new routine array
-          return [...updatedRoutines];
-        });
-      }
-    }
+    )
+      deleteItem();
     // resetting the pan on hold leave
     pan.setOffset({ x: 0, y: 0 });
   };
