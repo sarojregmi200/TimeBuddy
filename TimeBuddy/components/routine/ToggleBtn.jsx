@@ -6,20 +6,34 @@ import styles from "../../styles/components/routine/style.toggleBtn.js";
 
 // to update the routine data on change
 import { datalayer } from "../../configurations/Context.js";
+// to update the database
+import { updateDb } from "../../configurations/appwrite.config.js";
 
 const ToggleBtn = ({ controls: [toggleBtn, setToggleBtn], routineId }) => {
   // function to change routine info data
   const {
-    routine: [, setRoutineInfo],
+    routine: [routineInfo, setRoutineInfo],
   } = useContext(datalayer);
 
-  const handleToggle = (e) => {
+  const handleToggle = () => {
     setToggleBtn(!toggleBtn);
-
     setRoutineInfo((routineArr) => {
       return routineArr.map((routine) => {
-        if (routine.r_id === routineId) return { ...routine, isOn: !toggleBtn };
-        return routine;
+        // if the given id is a routine id
+        if (routine.r_id === routineId) {
+          // changing the toggle btn
+          const updatedRoutine = {
+            ...routine,
+            isOn: !toggleBtn,
+          };
+          // reflecting the state change in the db
+          updateDb(routine?.$id, updatedRoutine);
+          return { ...routine, isOn: !toggleBtn };
+        } else {
+          // if not it is a task id
+
+          return routine;
+        }
       });
     });
   };
