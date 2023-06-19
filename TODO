@@ -39,7 +39,7 @@ Universal:
   ✔ tasks in the cloud @started(23-06-17 15:22) @done(23-06-18 14:05) @lasted(22h43m18s)
   ✔ fix the tasks in the appwrite @done(23-06-18 10:02)
   ✔ fix the add task function @done(23-06-18 14:05)
-  ☐ fix updates in the tasks and routines @started(23-06-18 17:41)
+  ✔ fix updates in the tasks and routines @started(23-06-18 17:41) @done(23-06-19 18:34) @lasted(1d53m28s)
   ☐ auth.
   ☐ universal state server and user level.
   ☐ push notification
@@ -50,6 +50,7 @@ Bugs:
   ✔ toggle btn not working in the new routine @done(23-06-13 22:44)
   ✔ nav bar z index and container issue @done(23-06-13 13:53)
   ☐ the delete algorithm is buggy
+  ☐ The time picker in task adder is not working properly
   
 
 Next version Features:
