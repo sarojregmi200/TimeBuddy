@@ -45,7 +45,6 @@ const ToggleBtn = ({
           tasksArray.map((task) => {
             if (task.t_id === taskId) {
               task.isOn = !toggleBtn;
-              console.log("matched " + task.isOn);
             }
             return task;
           });
@@ -53,8 +52,10 @@ const ToggleBtn = ({
             ...routine,
             tasks: JSON.stringify(tasksArray),
           };
-          console.log({ updatedRoutine: tasksArray });
 
+          // reflecting the state change in the db
+          updateDb(routine?.$id, updatedRoutine);
+          // setting the state
           return { ...updatedRoutine };
         }
       });
