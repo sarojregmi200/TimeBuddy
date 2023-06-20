@@ -9,6 +9,7 @@ import { datalayer } from "../../configurations/Context.js";
 
 // components
 import ListItem from "../../components/global/ListItem.jsx";
+import RunningTask from "../../components/running task/RunningTask.js";
 
 //icons
 import Add from "../../assets/svgs/Add.svg";
@@ -25,6 +26,7 @@ const Routine = ({}) => {
 
   return (
     <ScrollView>
+      <RunningTask />
       <View style={styles.mainContainer}>
         {/* title with add icon*/}
         <View style={styles.titleContainer}>
