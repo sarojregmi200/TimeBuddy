@@ -42,7 +42,8 @@ Universal:
   ✔ fix updates in the tasks and routines @started(23-06-18 17:41) @done(23-06-19 18:34) @lasted(1d53m28s)
   ☐ auth.
   ☐ universal state server and user level.
-  ☐ push notification
+  ☐ push notification.
+  ☐ creating the current task Clock @started(23-06-20 09:53)
 
 Bugs:
   ✔ keyboard pushes content upward @done(23-06-13 15:12)

@@ -164,10 +164,6 @@ const ListItem = ({ data, ind, type, parentId = false }) => {
     }
   };
 
-  console.log({
-    Time: data?.time,
-  });
-
   return (
     <Pressable
       onTouchStart={handleTouchBegin}
