@@ -4,9 +4,6 @@ import React, { useEffect, useState } from "react";
 // styles
 import styles from "../../styles/components/tasks/style.clock.js";
 
-// moment
-import moment from "moment";
-
 const Clock = () => {
   const [taskTime, setTaskTime] = useState({
     travelledTime: 300,
