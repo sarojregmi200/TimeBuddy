@@ -6,8 +6,8 @@ export default StyleSheet.create({
   circleBorderDash: {
     backgroundColor: "rgba(164, 83, 67, 0.33)",
     height: 4,
-    width: 6,
-    borderRadius: 3,
+    width: 10,
+    borderRadius: 1,
     position: "absolute",
   },
 
