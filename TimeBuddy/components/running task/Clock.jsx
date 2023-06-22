@@ -8,7 +8,13 @@ import styles from "../../styles/components/tasks/style.clock.js";
 import moment from "moment";
 
 const Clock = () => {
-  const [currentTime, setCurrentTime] = useState(0);
+  const [taskTime, setTaskTime] = useState({
+    travelledTime: 300,
+    totalTime: 500,
+    remainingTime: 200,
+  });
+  const [currentDashIndex, setCurrentDashIndex] = useState(0);
+
   // number of dash in the circle
   const numberOfDash = 50;
 
@@ -41,10 +47,21 @@ const Clock = () => {
     dashes.push({
       x,
       y,
-      background: "rgba(164, 83, 67, 0.13)",
       rotation: angle,
     });
   }
+
+  useEffect(() => {
+    setCurrentDashIndex(() => {
+      const oneSec = 50 / taskTime.totalTime;
+      const currentDash = oneSec * taskTime.travelledTime;
+      console.log({
+        oneSec,
+        currentDash,
+      });
+      return currentDash;
+    });
+  }, [taskTime]);
   return (
     <View style={styles.strokeContainer}>
       {dashes.map((dash, count) => {
@@ -55,7 +72,10 @@ const Clock = () => {
               {
                 top: dash?.y,
                 left: dash?.x,
-                backgroundColor: dash?.background,
+                backgroundColor:
+                  currentDashIndex <= count
+                    ? "rgba(164, 83, 67, 0.13)"
+                    : "rgba(92, 188, 168, 1)",
                 transform: [{ rotate: dash?.rotation + "rad" }],
               },
             ]}
@@ -68,8 +88,8 @@ const Clock = () => {
         source={require("../../assets/currentTimeStroke.png")}
         style={{
           position: "absolute",
-          top: dashes[30].y - 30,
-          left: dashes[30].x - 30,
+          top: dashes[currentDashIndex].y - 30,
+          left: dashes[currentDashIndex].x - 30,
         }}
       />
     </View>
