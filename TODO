@@ -44,7 +44,8 @@ Universal:
   ☐ universal state server and user level.
   ☐ push notification.
   ✘ creating the current task Clock @started(23-06-20 09:53) @cancelled(23-06-20 14:05) @wasted(4h12m55s)
-  ☐ reverting back to non skia method for creating the clock
+  ✔ reverting back to non skia method for creating the clock @done(23-06-22 08:48)
+  ☐ Creating a countdown
 
 Bugs:
   ✔ keyboard pushes content upward @done(23-06-13 15:12)
