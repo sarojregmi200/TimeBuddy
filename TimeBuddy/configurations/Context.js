@@ -116,7 +116,19 @@ const Context = ({ children }) => {
       }
     }
 
-    console.log(tasks);
+    // now, after all this sortings
+    // first task in the tasks will contain the running task or the task that is near to running
+    // updating the state on the basis of the status of the task i.e running or will run
+    const shownTask = tasks[0]; // the task whose status will be shown
+    const shownTaskTime = calculateTime(shownTask); // starting and ending time of the task to be shown
+    setTask({
+      isRunning: currentTimeInSeconds > shownTaskTime.start, // if true it means task is running or else it means task will be running
+      travelledTime:
+        shownTaskTime.end - shownTaskTime.start - currentTimeInSeconds, // time covered by the task from it's total time.
+      totalTime: shownTaskTime.end - shownTaskTime.start, // total life time of the task
+      remainingTime: shownTaskTime.end - currentTimeInSeconds, // remaining time for the task to be complete or to start
+      data: shownTask, // the task that is running or will run
+    });
   };
 
   const calculateTime = (task, index) => {
@@ -156,6 +168,7 @@ const Context = ({ children }) => {
       });
     }
   };
+  console.log(task);
 
   return (
     <datalayer.Provider
