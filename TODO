@@ -41,11 +41,12 @@ Universal:
   ✔ fix the add task function @done(23-06-18 14:05)
   ✔ fix updates in the tasks and routines @started(23-06-18 17:41) @done(23-06-19 18:34) @lasted(1d53m28s)
   ☐ auth.
-  ☐ universal state server and user level.
+  ✔ universal state server and user level. @done(23-06-23 11:35)
   ☐ push notification.
   ✘ creating the current task Clock @started(23-06-20 09:53) @cancelled(23-06-20 14:05) @wasted(4h12m55s)
   ✔ reverting back to non skia method for creating the clock @done(23-06-22 08:48)
-  ☐ Creating a countdown
+  ✔ Creating a countdown @done(23-06-23 11:35)
+  ☐ applying routine level toggle filter in current and running tasks
   ☐ arranging the tasks on the basis of their start time
 
 Bugs:
@@ -54,6 +55,7 @@ Bugs:
   ✔ toggle btn not working in the new routine @done(23-06-13 22:44)
   ✔ nav bar z index and container issue @done(23-06-13 13:53)
   ☐ the delete algorithm is buggy
+  ☐ time picker removes second zero example: 14:00 -> 14:0 
   ✔ The time picker in task adder is not working properly @started(23-06-19 18:42) @done(23-06-19 19:31) @lasted(49m12s)
   
 
