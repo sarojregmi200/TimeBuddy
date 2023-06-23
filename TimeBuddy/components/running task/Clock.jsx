@@ -1,15 +1,16 @@
 import { View, Text, Dimensions, Image } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 // styles
 import styles from "../../styles/components/tasks/style.clock.js";
 
+// context
+import { datalayer } from "../../configurations/Context.js";
+
 const Clock = () => {
-  const [taskTime, setTaskTime] = useState({
-    travelledTime: 300,
-    totalTime: 500,
-    remainingTime: 200,
-  });
+  const {
+    runningTasks: [task, setTask],
+  } = useContext(datalayer);
   const [currentDashIndex, setCurrentDashIndex] = useState(0);
 
   // number of dash in the circle
@@ -50,15 +51,15 @@ const Clock = () => {
 
   useEffect(() => {
     setCurrentDashIndex(() => {
-      const oneSec = 50 / taskTime.totalTime;
-      const currentDash = oneSec * taskTime.travelledTime;
+      const oneSec = 50 / task.totalTime;
+      const currentDash = oneSec * task.travelledTime;
       console.log({
         oneSec,
         currentDash,
       });
       return currentDash;
     });
-  }, [taskTime]);
+  }, [task]);
   return (
     <View style={styles.strokeContainer}>
       {dashes.map((dash, count) => {
@@ -85,7 +86,7 @@ const Clock = () => {
         source={require("../../assets/currentTimeStroke.png")}
         style={{
           position: "absolute",
-          top: dashes[currentDashIndex].y - 30,
+          top: dashes[currentDashIndex]?.y - 30,
           left: dashes[currentDashIndex].x - 30,
         }}
       />

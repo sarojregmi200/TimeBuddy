@@ -28,7 +28,13 @@ const Context = ({ children }) => {
   const [user, setUser] = useState({ userId: null });
 
   // state that contains the currently running tasks
-  const [task, setTask] = useState();
+  const [task, setTask] = useState({
+    isRunning: false,
+    travelledTime: 0,
+    totalTime: 0,
+    remainingTime: 0,
+    data: {},
+  });
 
   // seconds in one hour, and 1 min
   const SecondsInHour = 3600;

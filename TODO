@@ -47,7 +47,8 @@ Universal:
   ✔ reverting back to non skia method for creating the clock @done(23-06-22 08:48)
   ✔ Creating a countdown @done(23-06-23 11:35)
   ☐ applying routine level toggle filter in current and running tasks
-  ☐ arranging the tasks on the basis of their start time
+  ☐ arranging the tasks on the basis of their start time.
+  ☐ fix the context data fetching of the task time.
 
 Bugs:
   ✔ keyboard pushes content upward @done(23-06-13 15:12)
