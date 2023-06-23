@@ -80,16 +80,16 @@ const Context = ({ children }) => {
     tasks = tasks.filter((task) => {
       return task.isOn === true;
     });
+    console.log(tasks);
+    // current time in seconds
+    const currentTimeInSeconds =
+      new Date().getHours() * SecondsInHour +
+      new Date().getMinutes() * secondInMin;
 
     // applying filter based on time and removing the task that have been complete
     tasks.forEach((task, index) => {
       // calculates and returns the starting and ending time of the task provided in seconds
-      const taskTime = calculateTime(task); // object that contains starting and ending time of the task
-
-      // current time in seconds
-      const currentTimeInSeconds =
-        new Date().getHours() * SecondsInHour +
-        new Date().getMinutes() * secondInMin;
+      const taskTime = calculateTime(task, index); // object that contains starting and ending time of the task
 
       // removing all the task which have already ended
 
@@ -101,33 +101,60 @@ const Context = ({ children }) => {
     });
 
     // applying bubble sort algorithm to find the task which is running or will run shortly.
+
+    for (let i = 0; i < tasks.length; i++) {
+      for (let j = i + 1; j < tasks.length; j++) {
+        // getting the time of the task in seconds
+        const currentTaskTime = calculateTime(tasks[i]);
+        const nextTaskTime = calculateTime(tasks[j]);
+        // moving the smaller time ahead in index and pushing the bigger time further
+        // sorting in assending order
+        if (currentTaskTime.start > nextTaskTime.start) {
+          tasks[i] = tasks[j];
+          tasks[j] = tasks[i];
+        }
+      }
+    }
+
+    console.log(tasks);
   };
 
-  const calculateTime = (task) => {
-    // calculating the starting and the ending time of the provided task
+  const calculateTime = (task, index) => {
+    try {
+      // calculating the starting and the ending time of the provided task
 
-    // starting time of the task
-    const rawStartingTime = task.time?.first;
-    const startingTimeInSeconds =
-      parseInt(rawStartingTime.split(":")[0]) * SecondsInHour +
-      parseInt(
-        rawStartingTime.replace("PM", "").replace("AM", "").split(":")[1].trim()
-      ) *
-        secondInMin;
+      // starting time of the task
+      const rawStartingTime = task.time?.first;
+      const startingTimeInSeconds =
+        parseInt(rawStartingTime.split(":")[0]) * SecondsInHour +
+        parseInt(
+          rawStartingTime
+            .replace("PM", "")
+            .replace("AM", "")
+            .split(":")[1]
+            .trim()
+        ) *
+          secondInMin;
 
-    // ending time of the task
-    const rawEndingTime = task.time?.second;
-    const endingTimeInSeconds =
-      parseInt(rawEndingTime.split(":")[0]) * SecondsInHour +
-      parseInt(
-        rawEndingTime.replace("PM", "").replace("AM", "").split(":")[1].trim()
-      ) *
-        secondInMin;
+      // ending time of the task
+      const rawEndingTime = task.time?.second;
+      const endingTimeInSeconds =
+        parseInt(rawEndingTime.split(":")[0]) * SecondsInHour +
+        parseInt(
+          rawEndingTime.replace("PM", "").replace("AM", "").split(":")[1].trim()
+        ) *
+          secondInMin;
 
-    return {
-      start: startingTimeInSeconds,
-      end: endingTimeInSeconds,
-    };
+      return {
+        start: startingTimeInSeconds,
+        end: endingTimeInSeconds,
+      };
+    } catch (e) {
+      console.log({
+        e,
+        index,
+      });
+    }
   };
 
   return (
