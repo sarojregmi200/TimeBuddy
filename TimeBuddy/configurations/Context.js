@@ -80,7 +80,7 @@ const Context = ({ children }) => {
     tasks = tasks.filter((task) => {
       return task.isOn === true;
     });
-    console.log(tasks);
+
     // current time in seconds
     const currentTimeInSeconds =
       new Date().getHours() * SecondsInHour +
@@ -93,10 +93,9 @@ const Context = ({ children }) => {
 
       // removing all the task which have already ended
 
-      // if current time is smaller it means the time has already past the end of the task and the task had to be completed in the past
-      if (currentTimeInSeconds < taskTime.end) {
+      // if current time is bigger it means the time has already past the end of the task and the task had to be completed in the past
+      if (currentTimeInSeconds > taskTime.end) {
         tasks.pop(task); // remove the task from the array
-        return;
       }
     });
 
@@ -109,6 +108,7 @@ const Context = ({ children }) => {
         const nextTaskTime = calculateTime(tasks[j]);
         // moving the smaller time ahead in index and pushing the bigger time further
         // sorting in assending order
+        console.log(currentTaskTime, nextTaskTime);
         if (currentTaskTime.start > nextTaskTime.start) {
           tasks[i] = tasks[j];
           tasks[j] = tasks[i];
