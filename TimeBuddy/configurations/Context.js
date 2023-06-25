@@ -127,13 +127,38 @@ const Context = ({ children }) => {
     // updating the state on the basis of the status of the task i.e running or will run
     const shownTask = tasks[0]; // the task whose status will be shown
     const shownTaskTime = calculateTime(shownTask); // starting and ending time of the task to be shown
+
+    // reference for calculation
+    // starting time is 1:30 am and ending is 2:30 am
+    // current is 1:00 am and after sometime it is 2:00 am
+    //
+
+    const isRunning = currentTimeInSeconds > shownTaskTime.start;
+
+    const totalTime =
+      shownTaskTime.end > shownTaskTime.start
+        ? shownTaskTime.end - shownTaskTime.start // example 10:00 am start and
+        : shownTaskTime.start - shownTaskTime.end; // example 0:15 am i.e 12:15 am end and starting 11:15 pm
+
+    const travelledTime = isRunning
+      ? currentTimeInSeconds - shownTaskTime.start
+      : currentTimeInSeconds;
+
+    const remainingTime = totalTime - travelledTime;
     setTask({
+      isRunning, // if true it means task is running or else it means task will be running
+      totalTime, // total life time of the task
+      travelledTime,
+      remainingTime,
+      data: shownTask, // the task that is running or will run
+    });
+
+    console.log({
       isRunning: currentTimeInSeconds > shownTaskTime.start, // if true it means task is running or else it means task will be running
       travelledTime:
         shownTaskTime.end - shownTaskTime.start - currentTimeInSeconds, // time covered by the task from it's total time.
       totalTime: shownTaskTime.end - shownTaskTime.start, // total life time of the task
       remainingTime: shownTaskTime.end - currentTimeInSeconds, // remaining time for the task to be complete or to start
-      data: shownTask, // the task that is running or will run
     });
   };
 

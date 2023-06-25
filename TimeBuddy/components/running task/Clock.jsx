@@ -51,7 +51,9 @@ const Clock = () => {
 
   useEffect(() => {
     setCurrentDashIndex(() => {
-      const oneSec = 50 / task.totalTime;
+      const oneSec = 50 / task?.totalTime;
+
+      console.log(task?.totalTime);
       const currentDash = oneSec * task.travelledTime;
       console.log({
         oneSec,
@@ -86,8 +88,10 @@ const Clock = () => {
         source={require("../../assets/currentTimeStroke.png")}
         style={{
           position: "absolute",
-          top: dashes[currentDashIndex]?.y - 30,
-          left: dashes[currentDashIndex].x - 30,
+          opacity:
+            dashes[currentDashIndex]?.y && dashes[currentDashIndex]?.x ? 1 : 0,
+          top: dashes[currentDashIndex]?.y - 30 || 0,
+          left: dashes[currentDashIndex]?.x - 30 || 0,
         }}
       />
     </View>
