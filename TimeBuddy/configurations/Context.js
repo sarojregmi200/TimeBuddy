@@ -140,11 +140,11 @@ const Context = ({ children }) => {
         ? shownTaskTime.end - shownTaskTime.start // example 10:00 am start and
         : shownTaskTime.start - shownTaskTime.end; // example 0:15 am i.e 12:15 am end and starting 11:15 pm
 
-    const travelledTime = isRunning
-      ? currentTimeInSeconds - shownTaskTime.start
-      : currentTimeInSeconds;
+    const travelledTime = currentTimeInSeconds - shownTaskTime.start;
 
-    const remainingTime = totalTime - travelledTime;
+    const remainingTime = isRunning
+      ? totalTime - travelledTime
+      : shownTaskTime.start - currentTimeInSeconds;
     setTask({
       isRunning, // if true it means task is running or else it means task will be running
       totalTime, // total life time of the task

@@ -51,19 +51,16 @@ const Clock = () => {
 
   useEffect(() => {
     setCurrentDashIndex(() => {
-      const oneSec = 50 / task?.totalTime;
-
-      console.log(task?.totalTime);
-      const currentDash = oneSec * task.travelledTime;
       console.log({
-        oneSec,
-        currentDash,
+        data: task,
       });
+      const oneSec = 50 / task?.totalTime;
+      const currentDash = oneSec * task.travelledTime;
       return currentDash;
     });
   }, [task]);
   return (
-    <View style={styles.strokeContainer}>
+    <View style={[styles.strokeContainer]}>
       {dashes.map((dash, count) => {
         return (
           <View
@@ -77,6 +74,7 @@ const Clock = () => {
                     ? "rgba(164, 83, 67, 0.13)"
                     : "rgba(92, 188, 168, 1)",
                 transform: [{ rotate: dash?.rotation + "rad" }],
+                opacity: task?.isRunning ? 1 : 0.8,
               },
             ]}
             key={count}
@@ -84,16 +82,16 @@ const Clock = () => {
         );
       })}
 
-      <Image
-        source={require("../../assets/currentTimeStroke.png")}
-        style={{
-          position: "absolute",
-          opacity:
-            dashes[currentDashIndex]?.y && dashes[currentDashIndex]?.x ? 1 : 0,
-          top: dashes[currentDashIndex]?.y - 30 || 0,
-          left: dashes[currentDashIndex]?.x - 30 || 0,
-        }}
-      />
+      {task?.isRunning && (
+        <Image
+          source={require("../../assets/currentTimeStroke.png")}
+          style={{
+            position: "absolute",
+            top: dashes[currentDashIndex]?.y - 30,
+            left: dashes[currentDashIndex]?.x - 30,
+          }}
+        />
+      )}
     </View>
   );
 };
