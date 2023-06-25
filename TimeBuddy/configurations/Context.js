@@ -3,9 +3,6 @@ import React, { createContext, useEffect, useState } from "react";
 // creating the context provider
 export const datalayer = createContext();
 
-// moment to handle time
-import moment from "moment";
-
 // importing the appwrite configurations
 import { DB, DBId, CollectionId, getDeviceId } from "./appwrite.config.js";
 import { Query } from "appwrite";
@@ -36,10 +33,6 @@ const Context = ({ children }) => {
     data: {},
   });
 
-  // seconds in one hour, and 1 min
-  const SecondsInHour = 3600;
-  const secondInMin = 60;
-
   // after data being updated to db
   const fetchDbData = () => {
     // setting up the user
@@ -51,7 +44,6 @@ const Context = ({ children }) => {
         getData(id)
           .then((data) => {
             setRoutineInfo(data.documents || []);
-            extractCurrentTask(data.documents || []);
           })
           .catch((e) => console.log(e));
       })
@@ -67,13 +59,13 @@ const Context = ({ children }) => {
     };
   };
 
-  // component did mount
-  useEffect(() => {
-    fetchDbData();
-  }, []);
+  // seconds in one hour, and 1 min
+  const SecondsInHour = 3600;
+  const secondInMin = 60;
 
   // a function that accepts all the routines and then extracts the current task from the routine
   const extractCurrentTask = (routines) => {
+    if (routines.length <= 0) return; // return if routine is not correct
     // all the tasks in the object form
     let tasks = [];
     // looping through all the routines
@@ -86,6 +78,8 @@ const Context = ({ children }) => {
     tasks = tasks.filter((task) => {
       return task.isOn === true;
     });
+
+    if (tasks.length <= 0) return; // return if there are no tasks
 
     // current time in seconds
     const currentTimeInSeconds =
@@ -100,7 +94,7 @@ const Context = ({ children }) => {
       // removing all the task which have already ended
 
       // if current time is bigger it means the time has already past the end of the task and the task had to be completed in the past
-      if (currentTimeInSeconds > taskTime.end) {
+      if (currentTimeInSeconds > taskTime?.end) {
         tasks.pop(task); // remove the task from the array
       }
     });
@@ -114,8 +108,7 @@ const Context = ({ children }) => {
         const nextTaskTime = calculateTime(tasks[j]);
         // moving the smaller time ahead in index and pushing the bigger time further
         // sorting in assending order
-        console.log(currentTaskTime, nextTaskTime);
-        if (currentTaskTime.start > nextTaskTime.start) {
+        if (currentTaskTime?.start > nextTaskTime?.start) {
           tasks[i] = tasks[j];
           tasks[j] = tasks[i];
         }
@@ -133,32 +126,24 @@ const Context = ({ children }) => {
     // current is 1:00 am and after sometime it is 2:00 am
     //
 
-    const isRunning = currentTimeInSeconds > shownTaskTime.start;
+    const isRunning = currentTimeInSeconds > shownTaskTime?.start;
 
     const totalTime =
-      shownTaskTime.end > shownTaskTime.start
-        ? shownTaskTime.end - shownTaskTime.start // example 10:00 am start and
-        : shownTaskTime.start - shownTaskTime.end; // example 0:15 am i.e 12:15 am end and starting 11:15 pm
+      shownTaskTime?.end > shownTaskTime?.start
+        ? shownTaskTime?.end - shownTaskTime?.start // example 10:00 am start and
+        : shownTaskTime?.start - shownTaskTime?.end; // example 0:15 am i.e 12:15 am end and starting 11:15 pm
 
-    const travelledTime = currentTimeInSeconds - shownTaskTime.start;
+    const travelledTime = currentTimeInSeconds - shownTaskTime?.start;
 
     const remainingTime = isRunning
       ? totalTime - travelledTime
-      : shownTaskTime.start - currentTimeInSeconds;
+      : shownTaskTime?.start - currentTimeInSeconds;
     setTask({
       isRunning, // if true it means task is running or else it means task will be running
       totalTime, // total life time of the task
       travelledTime,
       remainingTime,
       data: shownTask, // the task that is running or will run
-    });
-
-    console.log({
-      isRunning: currentTimeInSeconds > shownTaskTime.start, // if true it means task is running or else it means task will be running
-      travelledTime:
-        shownTaskTime.end - shownTaskTime.start - currentTimeInSeconds, // time covered by the task from it's total time.
-      totalTime: shownTaskTime.end - shownTaskTime.start, // total life time of the task
-      remainingTime: shownTaskTime.end - currentTimeInSeconds, // remaining time for the task to be complete or to start
     });
   };
 
@@ -199,8 +184,24 @@ const Context = ({ children }) => {
       });
     }
   };
-  console.log(task);
 
+  // component did mount
+  useEffect(() => {
+    fetchDbData();
+  }, []);
+
+  // on routine change
+  useEffect(() => {
+    if (routineInfo.length < 0) return;
+    const clockInterval = setInterval(() => {
+      extractCurrentTask(routineInfo || []);
+    }, 1000);
+
+    // clean up function
+    return () => {
+      clearInterval(clockInterval);
+    };
+  }, [routineInfo]);
   return (
     <datalayer.Provider
       value={{
